@@ -1,4 +1,5 @@
 import '../src/index.js';
+import { version } from '../package.json';
 
 const THEME_ATTRIBUTES = Object.freeze({
   auto: root => root.removeAttribute('data-theme'),
@@ -147,6 +148,9 @@ const setupForm = form => {
   });
 };
 
+document.querySelectorAll('[data-version]').forEach(node => {
+  node.textContent = `v${version}`;
+});
 setupThemeSwitch(document.documentElement);
 renderPalette(document.querySelector('[data-palette]'));
 renderChart(document.querySelector('[data-chart]'), document.querySelector('[data-chart-legend]'));

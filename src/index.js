@@ -1,5 +1,5 @@
 /**
- * Vítreo DS v0.0.1 — ponto de entrada. Importar este módulo registra todos os elementos.
+ * Vítreo DS — ponto de entrada. Versão em package.json; histórico em CHANGELOG.md. Importar este módulo registra todos os elementos.
  *
  * Átomos:     vt-button, vt-input
  * Moléculas:  vt-field, vt-alert

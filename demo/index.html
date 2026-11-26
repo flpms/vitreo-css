@@ -16,107 +16,135 @@
     <header class="masthead">
       <div class="wrap masthead__inner">
         <div>
-          <p class="vt-label">Design system · v0.0.1 · feat-treomon</p>
+          <p class="vt-label vt-muted">Design system · v0.0.1</p>
           <h1 class="brand">vítreo</h1>
-          <p class="lede">Vitral de igreja, Metro UI e Mondrian: bordas de chumbo, vidro translúcido e cor de verdade — com contraste calculado pela WCAG 2.</p>
+          <p class="lede">Vidro de catedral, Metro UI e Mondrian. Chumbo fino, vidro translúcido e cor de verdade, com contraste calculado pela WCAG 2.</p>
         </div>
         <fieldset class="theme-switch">
-          <legend class="vt-label">Tema</legend>
+          <legend class="vt-label vt-muted">Tema</legend>
           <label><input type="radio" name="theme" value="auto" checked /> <span>auto</span></label>
           <label><input type="radio" name="theme" value="light" /> <span>claro</span></label>
           <label><input type="radio" name="theme" value="dark" /> <span>escuro</span></label>
         </fieldset>
       </div>
+      <div class="came" aria-hidden="true"></div>
     </header>
 
     <main id="conteudo" class="wrap">
+      <!-- ───────────── Paleta ───────────── -->
+      <section aria-labelledby="t-paleta">
+        <h2 id="t-paleta">a obra expandida</h2>
+        <p>Em vez dos três primários do Mondrian, oito vidros. Vêm dos vitrais medievais (o azul de Chartres, o rubi de cobre, o âmbar de prata e a pátina do chumbo) e do Mondrian tardio. Em <em>Broadway Boogie Woogie</em> as linhas deixam de ser pretas e viram cor. Cada família é gerada em OKLCH com a mesma luminosidade por degrau, então um cobalto 600 e um rubi 600 têm o mesmo peso e o mesmo contraste.</p>
+        <div class="palette" data-palette></div>
+      </section>
+
+      <!-- ───────────── Dashboard ───────────── -->
+      <section aria-labelledby="t-dash">
+        <h2 id="t-dash">em um dashboard</h2>
+        <p class="vt-muted">Montado só com os componentes do sistema. Os números são de exemplo.</p>
+
+        <div class="dash">
+          <div class="dash__bar">
+            <vt-input class="dash__search" label="Buscar relatório" type="search" placeholder="Buscar relatório…"></vt-input>
+            <vt-button variant="secondary">exportar</vt-button>
+            <vt-button variant="primary">novo relatório</vt-button>
+          </div>
+
+          <vt-grid mode="air">
+            <vt-cell span="7" span-md="21">
+              <vt-card>
+                <span slot="header" class="vt-label vt-muted">visitantes · novembro</span>
+                <p class="kpi">12.480</p>
+                <p class="kpi__delta"><span class="trend trend--up" aria-hidden="true">▲</span> 8,2% sobre outubro</p>
+              </vt-card>
+            </vt-cell>
+            <vt-cell span="7" span-md="10" span-sm="21">
+              <vt-card>
+                <span slot="header" class="vt-label vt-muted">conversão</span>
+                <p class="kpi">3,4%</p>
+                <p class="kpi__delta"><span class="trend trend--flat" aria-hidden="true">■</span> estável</p>
+              </vt-card>
+            </vt-cell>
+            <vt-cell span="7" span-md="11" span-sm="21">
+              <vt-card tone="ruby">
+                <span slot="header" class="vt-label">chamados abertos</span>
+                <p class="kpi">27</p>
+                <p class="kpi__delta"><span class="trend" aria-hidden="true">▲</span> 9 acima da meta</p>
+              </vt-card>
+            </vt-cell>
+
+            <vt-cell span="13" span-md="21">
+              <vt-card>
+                <h3 slot="header">receita por mês</h3>
+                <div class="chart" data-chart role="img" aria-label="Gráfico de barras: receita mensal de junho a novembro, assinaturas e avulsos. Assinaturas crescem de 42 para 61 mil; avulsos oscilam entre 18 e 26 mil."></div>
+                <ul class="legend" data-chart-legend></ul>
+              </vt-card>
+            </vt-cell>
+            <vt-cell span="8" span-md="21">
+              <vt-card>
+                <h3 slot="header">origem do tráfego</h3>
+                <div class="share" data-share role="img" aria-label="Distribuição do tráfego por origem"></div>
+                <ul class="share__list" data-share-legend></ul>
+              </vt-card>
+            </vt-cell>
+
+            <vt-cell span="21">
+              <vt-alert variant="warning" heading="Fila de suporte acima da meta" dismissible>27 chamados abertos, e a meta é 18. O tempo médio de resposta subiu para 6 h.</vt-alert>
+            </vt-cell>
+          </vt-grid>
+        </div>
+      </section>
+
       <!-- ───────────── Camadas ───────────── -->
       <section aria-labelledby="t-camadas">
         <h2 id="t-camadas">camadas de contraste</h2>
-        <p>Cada nível visual é uma camada com seu próprio par de cores validado. Os filhos leem o contexto da camada onde estão (<code>--vt-ctx-*</code>), então o mesmo botão funciona sobre o fundo ou sobre qualquer vidro.</p>
+        <p>Cada nível visual é uma camada com o próprio par de cores validado. Os filhos leem o contexto da camada onde estão (<code>--vt-ctx-*</code>), então o mesmo botão funciona sobre o fundo ou sobre qualquer vidro.</p>
 
         <div class="layers">
-          <div class="layers__l0">
-            <span class="vt-label">L0 · canvas</span>
-            <p>Texto do fundo ≥ 4.5:1</p>
-            <vt-card tone="blue">
-              <span class="vt-label" slot="header">L1 · surface (vidro)</span>
-              <p>Texto medido sobre a cor composta do vidro, no pior fundo possível e com reflexo.</p>
-              <div class="layers__l2">
-                <span class="vt-label">L2 · control</span>
-                <vt-button variant="accent">botão sobre vidro</vt-button>
-                <vt-button variant="ghost">ghost herda a camada</vt-button>
-              </div>
-            </vt-card>
-          </div>
+          <span class="vt-label vt-muted">L0 · canvas</span>
+          <vt-card tone="cobalt">
+            <span class="vt-label" slot="header">L1 · vidro cobalto soft</span>
+            <p>Texto medido sobre a cor composta do vidro, no pior fundo possível e com reflexo.</p>
+            <div class="layers__l2">
+              <span class="vt-label">L2 · controles</span>
+              <vt-button variant="primary">sobre o vidro</vt-button>
+              <vt-button variant="ghost">ghost herda a camada</vt-button>
+            </div>
+          </vt-card>
         </div>
-        <p class="vt-muted">Relatório completo: <code>docs/contrast-report.md</code> — 52 de 52 pares aprovados nos temas claro e escuro.</p>
-      </section>
-
-      <!-- ───────────── Grid ───────────── -->
-      <section aria-labelledby="t-grid">
-        <h2 id="t-grid">grid de 21 colunas</h2>
-        <p>21 = 3 × 7 e também é número de Fibonacci: divide em terços (7 + 7 + 7), em sétimos e em composições Mondrian como 13 + 8 e 8 + 5 + 8.</p>
-        <div class="ruler" aria-hidden="true"></div>
-
-        <div class="proposals">
-          <article class="proposal" aria-labelledby="p-air">
-            <header class="proposal__head">
-              <span class="vt-label">Ideia 1 · <code>mode="air"</code></span>
-              <h3 id="p-air">Respiro Metro</h3>
-              <p>Gutter vazio e generoso (24px; 16px no celular). O grid é invisível; cada vidro traz o próprio chumbo. É a opção mais limpa e flexível, a mais próxima do Metro.</p>
-            </header>
-            <vt-grid mode="air" class="composition"></vt-grid>
-          </article>
-
-          <article class="proposal" aria-labelledby="p-light">
-            <header class="proposal__head">
-              <span class="vt-label">Ideia 2 · <code>mode="light"</code></span>
-              <h3 id="p-light">Luz atrás do vidro</h3>
-              <p>Uma composição Mondrian desfocada fica atrás do grid, seguindo as divisões 8 | 5 | 8 e 13 | 8, e os vidros a refratam. É a opção que mais mostra a translucidez. Os blocos de luz também entram no cálculo de contraste.</p>
-            </header>
-            <vt-grid mode="light" class="composition"></vt-grid>
-          </article>
-
-          <article class="proposal" aria-labelledby="p-lead">
-            <header class="proposal__head">
-              <span class="vt-label">Referência · <code>mode="lead"</code></span>
-              <h3 id="p-lead">Chumbo</h3>
-              <p>A proposta original, para comparar: o gutter vira a linha preta do vitral e do Mondrian, e os cards perdem a moldura própria.</p>
-            </header>
-            <vt-grid mode="lead" class="composition"></vt-grid>
-          </article>
-        </div>
+        <p class="vt-muted">Relatório completo em <code>docs/contrast-report.md</code>: 148 de 148 pares aprovados nos temas claro e escuro.</p>
       </section>
 
       <!-- ───────────── Botões ───────────── -->
       <section aria-labelledby="t-botoes">
         <h2 id="t-botoes">botões</h2>
-        <p>Átomo da camada L2. Ghost não tem cor própria: usa o texto da camada onde estiver.</p>
+        <p>Átomo da camada L2. Em repouso só o chumbo; no hover o botão sobe e ganha um degrau à direita e embaixo; ao clicar, afunda. Ghost não tem cor própria: usa o texto da camada.</p>
 
         <div class="row">
           <vt-button variant="primary">primary</vt-button>
           <vt-button variant="secondary">secondary</vt-button>
           <vt-button variant="accent">accent</vt-button>
+          <vt-button variant="danger">danger</vt-button>
           <vt-button variant="ghost">ghost</vt-button>
           <vt-button variant="primary" disabled>desabilitado</vt-button>
         </div>
         <div class="row">
-          <vt-button size="sm" variant="secondary">pequeno</vt-button>
-          <vt-button size="md" variant="secondary">médio</vt-button>
-          <vt-button size="lg" variant="secondary">
+          <vt-button size="sm" variant="primary">pequeno</vt-button>
+          <vt-button size="md" variant="primary">médio</vt-button>
+          <vt-button size="lg" variant="primary">
             grande
-            <svg slot="end" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            <svg slot="end" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
           </vt-button>
         </div>
 
-        <vt-grid mode="air" class="tones" data-tones></vt-grid>
+        <h3 class="subhead">sobre cada vidro · soft e strong</h3>
+        <div class="tones" data-tones></div>
       </section>
 
       <!-- ───────────── Campos ───────────── -->
       <section aria-labelledby="t-campos">
         <h2 id="t-campos">campos</h2>
-        <p><code>vt-input</code> é o átomo (sem rótulo visível, exige <code>label</code>); <code>vt-field</code> é a molécula com rótulo, dica e erro. Os dois se associam a <code>&lt;form&gt;</code> nativo.</p>
+        <p><code>vt-input</code> é o átomo: não tem rótulo visível e exige <code>label</code>. <code>vt-field</code> é a molécula, com rótulo, dica e erro. Os dois funcionam dentro de um <code>&lt;form&gt;</code> nativo.</p>
 
         <vt-grid mode="air">
           <vt-cell span="13" span-md="21">
@@ -126,7 +154,7 @@
                 <vt-field label="Nome" name="nome" required autocomplete="name"></vt-field>
                 <vt-field label="E-mail" name="email" type="email" hint="Usamos só para avisos da conta." autocomplete="email"></vt-field>
                 <vt-field label="Senha" name="senha" type="password" error="A senha precisa de pelo menos 8 caracteres." value="1234"></vt-field>
-                <vt-field label="Empresa" name="empresa" disabled value="Ateliê Mondrian"></vt-field>
+                <vt-field label="Empresa" name="empresa" disabled value="Ateliê de vitrais"></vt-field>
                 <div class="row">
                   <vt-button type="submit" variant="primary">enviar</vt-button>
                   <vt-button type="reset" variant="ghost">limpar</vt-button>
@@ -136,12 +164,12 @@
             </vt-card>
           </vt-cell>
           <vt-cell span="8" span-md="21">
-            <vt-card tone="blue">
-              <h3 slot="header">sobre vidro azul</h3>
+            <vt-card tone="cobalt" emphasis="strong">
+              <h3 slot="header">sobre vidro cobalto strong</h3>
               <p>Rótulo, dica e erro usam o texto da camada. O campo tem fundo próprio.</p>
               <div class="form">
                 <vt-input label="Buscar no acervo" type="search" placeholder="Buscar no acervo…"></vt-input>
-                <vt-field label="Cidade" hint="Ex.: Amersfoort"></vt-field>
+                <vt-field label="Cidade" hint="Ex.: Chartres"></vt-field>
                 <vt-field label="CEP" error="CEP não encontrado." value="00000-000"></vt-field>
               </div>
             </vt-card>
@@ -152,85 +180,68 @@
       <!-- ───────────── Alertas ───────────── -->
       <section aria-labelledby="t-alertas">
         <h2 id="t-alertas">alertas</h2>
-        <p>Molécula da camada L1 com a barra de chumbo do Mondrian. Cor, ícone e texto sempre juntos; <code>warning</code> e <code>danger</code> usam <code>role="alert"</code>.</p>
+        <p>Molécula da camada L1. Vidro tingido, moldura fina e ícone na cor do tom. Cor, ícone e texto aparecem sempre juntos. <code>warning</code> e <code>danger</code> usam <code>role="alert"</code>.</p>
         <div class="stack">
-          <vt-alert variant="info" heading="Nova versão" dismissible>Os tokens agora seguem o formato W3C DTCG.</vt-alert>
-          <vt-alert variant="success" heading="Contraste aprovado" dismissible>52 de 52 pares passaram na WCAG 2 nos dois temas.</vt-alert>
+          <vt-alert variant="info" heading="Nova versão" dismissible>Os tokens agora seguem o formato W3C DTCG, com a paleta em OKLCH.</vt-alert>
+          <vt-alert variant="success" heading="Contraste aprovado" dismissible>148 de 148 pares passaram na WCAG 2 nos dois temas.</vt-alert>
           <vt-alert variant="warning" heading="Atenção" dismissible>Vidros translúcidos só são validados sobre as camadas conhecidas do sistema.</vt-alert>
-          <vt-alert variant="danger" heading="Erro" dismissible>Não foi possível salvar o vitral. Tente de novo.</vt-alert>
+          <vt-alert variant="danger" heading="Erro ao salvar" dismissible>Não foi possível salvar o relatório. Verifique a conexão e tente de novo.</vt-alert>
+          <vt-alert variant="danger" emphasis="strong" heading="Strong">Para o que não pode passar despercebido.</vt-alert>
         </div>
       </section>
 
-      <!-- ───────────── Cards ───────────── -->
-      <section aria-labelledby="t-cards">
-        <h2 id="t-cards">cards</h2>
-        <p>Organismo da camada L1. O nível visual vem da camada, não de sombra: vidro, chumbo e reflexo.</p>
-        <vt-grid mode="air">
-          <vt-cell span="8" span-md="21">
-            <vt-card>
-              <svg slot="media" class="mondrian" viewBox="0 0 210 120" role="img" aria-label="Composição geométrica em vermelho, azul e amarelo">
-                <rect width="210" height="120" fill="#F5F1E6" />
-                <rect x="0" y="0" width="80" height="74" fill="#D62718" />
-                <rect x="150" y="74" width="60" height="46" fill="#1C4FA0" />
-                <rect x="0" y="100" width="40" height="20" fill="#F2C318" />
-                <g stroke="#111" stroke-width="6">
-                  <path d="M80 0v120M0 74h210M150 74v46M40 74v46M80 40h130M150 0v40" />
-                </g>
-              </svg>
-              <h3 slot="header">composição</h3>
-              <p>Card neutro com mídia que sangra até a moldura.</p>
-              <vt-button slot="footer" variant="secondary">ver obra</vt-button>
-            </vt-card>
-          </vt-cell>
-          <vt-cell span="5" span-md="10" span-sm="21">
-            <vt-card tone="red">
-              <h3 slot="header">vermelho</h3>
-              <p>Vidro vermelho escurecido o suficiente para texto branco ≥ 4.5:1.</p>
-              <vt-button slot="footer" variant="ghost">detalhes</vt-button>
-            </vt-card>
-          </vt-cell>
-          <vt-cell span="8" span-md="11" span-sm="21">
-            <vt-card tone="yellow">
-              <h3 slot="header">amarelo</h3>
-              <p>O amarelo segura texto escuro com folga: 11:1.</p>
-              <vt-button slot="footer" variant="primary">ação</vt-button>
-              <vt-button slot="footer" variant="ghost">cancelar</vt-button>
-            </vt-card>
-          </vt-cell>
-          <vt-cell span="13" span-md="21">
-            <vt-card tone="blue">
-              <h3 slot="header">azul</h3>
-              <p>Cards aceitam qualquer átomo ou molécula. Botões e campos se ajustam à camada sozinhos.</p>
-              <vt-field label="Assinar novidades" type="email" placeholder="voce@exemplo.com"></vt-field>
-              <vt-button slot="footer" variant="accent">assinar</vt-button>
-            </vt-card>
-          </vt-cell>
-          <vt-cell span="8" span-md="21">
-            <vt-card tone="emerald">
-              <h3 slot="header">esmeralda</h3>
-              <p>O verde não é do Mondrian, é dos vitrais. Ele é o tom do <code>success</code>.</p>
-              <vt-button slot="footer" variant="ghost">entendi</vt-button>
-            </vt-card>
-          </vt-cell>
-        </vt-grid>
+      <!-- ───────────── Grid ───────────── -->
+      <section aria-labelledby="t-grid">
+        <h2 id="t-grid">grid de 21 colunas</h2>
+        <p>21 = 3 × 7, e também é número de Fibonacci. Divide em terços (7 + 7 + 7), em sétimos e em composições como 13 + 8 e 8 + 5 + 8.</p>
+        <div class="ruler" aria-hidden="true"></div>
+
+        <div class="proposals">
+          <article class="proposal" aria-labelledby="p-air">
+            <header class="proposal__head">
+              <span class="vt-label vt-muted">Ideia 1 · <code>mode="air"</code></span>
+              <h3 id="p-air">Respiro Metro</h3>
+              <p>Espaço vazio e generoso entre as colunas: 24px, ou 16px no celular. O grid fica invisível e cada vidro traz o próprio chumbo.</p>
+            </header>
+            <vt-grid mode="air" class="composition"></vt-grid>
+          </article>
+
+          <article class="proposal" aria-labelledby="p-light">
+            <header class="proposal__head">
+              <span class="vt-label vt-muted">Ideia 2 · <code>mode="light"</code></span>
+              <h3 id="p-light">Luz atrás do vidro</h3>
+              <p>Blocos de luz desfocados ficam atrás do grid, seguindo as divisões 8 | 5 | 8 e 13 | 8, e os vidros os refratam. Os blocos também entram no cálculo de contraste.</p>
+            </header>
+            <vt-grid mode="light" class="composition"></vt-grid>
+          </article>
+
+          <article class="proposal" aria-labelledby="p-lead">
+            <header class="proposal__head">
+              <span class="vt-label vt-muted">Referência · <code>mode="lead"</code></span>
+              <h3 id="p-lead">Chumbo</h3>
+              <p>O espaço entre as colunas vira uma linha fina de grafite, e os cards perdem a moldura própria.</p>
+            </header>
+            <vt-grid mode="lead" class="composition"></vt-grid>
+          </article>
+        </div>
       </section>
     </main>
 
     <footer class="wrap colophon vt-muted">
-      <p>Vítreo DS v0.0.1 · Lit 3 · tokens W3C DTCG · grid de 21 colunas · contraste WCAG 2.x</p>
+      <p>Vítreo DS v0.0.1 · Lit 3 · tokens W3C DTCG · paleta OKLCH · grid de 21 colunas · contraste WCAG 2.x</p>
     </footer>
 
     <template id="composition">
       <vt-cell span="13" span-sm="21">
-        <vt-card tone="blue">
+        <vt-card tone="cobalt">
           <h4 slot="header">vitral principal</h4>
           <p>Span 13: a parte maior da divisão áurea do grid.</p>
-          <vt-button slot="footer" variant="accent">ação</vt-button>
-          <vt-button slot="footer" variant="ghost">mais</vt-button>
+          <vt-button slot="footer" variant="primary" size="sm">ação</vt-button>
+          <vt-button slot="footer" variant="ghost" size="sm">mais</vt-button>
         </vt-card>
       </vt-cell>
       <vt-cell span="8" span-sm="21">
-        <vt-card tone="yellow">
+        <vt-card tone="amber">
           <h4 slot="header">detalhe</h4>
           <p>Span 8.</p>
         </vt-card>
@@ -238,18 +249,18 @@
       <vt-cell span="8" span-sm="21">
         <vt-card>
           <h4 slot="header">neutro</h4>
-          <p>Span 8 — vidro claro.</p>
+          <p>Span 8, vidro claro.</p>
         </vt-card>
       </vt-cell>
       <vt-cell span="5" span-sm="10">
-        <vt-card tone="red">
+        <vt-card tone="ruby" emphasis="strong">
           <h4 slot="header">5</h4>
           <p>Span 5.</p>
         </vt-card>
       </vt-cell>
       <vt-cell span="8" span-sm="11">
-        <vt-card tone="emerald">
-          <h4 slot="header">esmeralda</h4>
+        <vt-card tone="verdigris">
+          <h4 slot="header">verdete</h4>
           <p>Span 8.</p>
         </vt-card>
       </vt-cell>

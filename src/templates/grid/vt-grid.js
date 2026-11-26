@@ -19,11 +19,11 @@ const DEFAULT_MODE = 'air';
  * background-position em %: p = x / (W − w); para começar na coluna 9 (x = 8/21) com largura 5/21 → 50%.
  */
 const LIGHT_COMPOSITION = `
-  linear-gradient(var(--vt-light-red), var(--vt-light-red)) 0 0 / 38.1% 62% no-repeat,
-  linear-gradient(var(--vt-light-yellow), var(--vt-light-yellow)) 100% 0 / 38.1% 38% no-repeat,
-  linear-gradient(var(--vt-light-blue), var(--vt-light-blue)) 50% 100% / 23.8% 55% no-repeat,
-  linear-gradient(var(--vt-light-yellow), var(--vt-light-yellow)) 0 100% / 14.3% 24% no-repeat,
-  linear-gradient(var(--vt-light-blue), var(--vt-light-blue)) 100% 100% / 23.8% 30% no-repeat
+  linear-gradient(var(--vt-light-ruby), var(--vt-light-ruby)) 0 0 / 38.1% 62% no-repeat,
+  linear-gradient(var(--vt-light-amber), var(--vt-light-amber)) 100% 0 / 38.1% 38% no-repeat,
+  linear-gradient(var(--vt-light-cobalt), var(--vt-light-cobalt)) 50% 100% / 23.8% 55% no-repeat,
+  linear-gradient(var(--vt-light-amber), var(--vt-light-amber)) 0 100% / 14.3% 24% no-repeat,
+  linear-gradient(var(--vt-light-cobalt), var(--vt-light-cobalt)) 100% 100% / 23.8% 30% no-repeat
 `;
 
 /**

@@ -5,6 +5,7 @@
  */
 import { readFile } from 'node:fs/promises';
 import { parseHex } from './color.mjs';
+import { paletteToTokens } from './palette.mjs';
 
 const TOKENS_DIR = new URL('../../src/tokens/', import.meta.url);
 export const THEMES = Object.freeze(['light', 'dark']);
@@ -14,10 +15,12 @@ const REFERENCE_PATTERN = /^\{([^}]+)\}$/;
 const readJson = async relative => JSON.parse(await readFile(new URL(relative, TOKENS_DIR), 'utf8'));
 
 /**
+ * Primitivos = primitives.json + cores geradas de palette.json (OKLCH → sRGB).
  * @returns {Promise<{ primitives: object, themes: Record<string, object> }>}
  */
 export const loadTokens = async () => {
-  const primitives = await readJson('primitives.json');
+  const [base, palette] = await Promise.all([readJson('primitives.json'), readJson('palette.json')]);
+  const primitives = { ...base, color: paletteToTokens(palette) };
   const entries = await Promise.all(THEMES.map(async theme => [theme, await readJson(`themes/${theme}.json`)]));
   return { primitives, themes: Object.fromEntries(entries) };
 };

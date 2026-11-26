@@ -4,10 +4,10 @@ import { defineElement } from '../../utils/define.js';
 
 /** Variante → tom do vidro (camada L1). */
 const VARIANT_TONES = Object.freeze({
-  info: 'blue',
-  success: 'emerald',
-  warning: 'yellow',
-  danger: 'red',
+  info: 'cobalt',
+  success: 'verdigris',
+  warning: 'amber',
+  danger: 'ruby',
 });
 
 /** Urgência: alert interrompe o leitor de tela; status espera a vez. */
@@ -18,7 +18,7 @@ const VARIANT_ROLES = Object.freeze({
   danger: 'alert',
 });
 
-/** Ícones redundantes à cor (WCAG 1.4.1) — usam currentColor, então herdam o contraste do texto. */
+/** Ícones redundantes à cor (WCAG 1.4.1), pintados com --vt-ctx-accent (≥ 3:1 sobre o vidro, validado). */
 const VARIANT_ICONS = Object.freeze({
   info: svg`<path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm-1.2 8v8h2.4v-8h-2.4Zm0-4v2.4h2.4V6h-2.4Z"/>`,
   success: svg`<path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm4.6 6.2-6 6-2.9-2.8-1.6 1.6 4.5 4.4 7.6-7.6-1.6-1.6Z"/>`,
@@ -29,7 +29,7 @@ const VARIANT_ICONS = Object.freeze({
 const DEFAULT_VARIANT = 'info';
 
 /**
- * Molécula · camada L1. Mensagem em vidro colorido com a barra de chumbo do Mondrian.
+ * Molécula · camada L1. Mensagem em vidro tingido (soft por padrão), moldura fina e ícone na cor do tom.
  *
  * @element vt-alert
  * @slot - mensagem
@@ -38,6 +38,7 @@ const DEFAULT_VARIANT = 'info';
  * @fires vt-dismiss - cancelável; se não for cancelado o alerta se fecha
  *
  * @attr {'info'|'success'|'warning'|'danger'} variant
+ * @attr {'soft'|'strong'} emphasis - soft (padrão) ou strong
  * @attr {string} heading - título curto
  * @attr {boolean} dismissible - mostra o botão de fechar
  * @attr {boolean} open - false esconde o alerta
@@ -45,6 +46,7 @@ const DEFAULT_VARIANT = 'info';
 export class VtAlert extends LitElement {
   static properties = {
     variant: { reflect: true },
+    emphasis: { reflect: true },
     heading: {},
     dismissible: { type: Boolean, reflect: true },
     open: { type: Boolean, reflect: true },
@@ -67,16 +69,16 @@ export class VtAlert extends LitElement {
         grid-template-columns: auto 1fr auto;
         align-items: start;
         gap: var(--vt-space-3);
-        padding: var(--vt-space-4) var(--vt-space-4) var(--vt-space-4) var(--vt-space-5);
+        padding: var(--vt-space-4);
         ${glass()}
         ${leadBorder('surface', '--vt-card-lead')}
-        border-left-width: var(--vt-lead-bar);
       }
 
       .icon {
-        width: 1.5rem;
-        height: 1.5rem;
-        fill: currentColor;
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-top: 0.125rem;
+        fill: var(--vt-ctx-accent);
       }
 
       .content {
@@ -94,13 +96,13 @@ export class VtAlert extends LitElement {
         appearance: none;
         display: grid;
         place-items: center;
-        width: 2.25rem;
-        height: 2.25rem;
-        margin: calc(var(--vt-space-1) * -1) 0;
+        width: 2rem;
+        height: 2rem;
+        margin: calc(var(--vt-space-1) * -1) calc(var(--vt-space-1) * -1) 0 0;
         padding: 0;
         color: inherit;
         background: transparent;
-        ${leadBorder('control')}
+        border: 0;
         cursor: pointer;
       }
 
@@ -112,7 +114,7 @@ export class VtAlert extends LitElement {
         width: 1rem;
         height: 1rem;
         stroke: currentColor;
-        stroke-width: 2.5;
+        stroke-width: 2;
       }
 
       ${raise('.close')}
@@ -123,6 +125,7 @@ export class VtAlert extends LitElement {
   constructor() {
     super();
     this.variant = DEFAULT_VARIANT;
+    this.emphasis = 'soft';
     this.dismissible = false;
     this.open = true;
   }

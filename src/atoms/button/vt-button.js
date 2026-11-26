@@ -35,7 +35,7 @@ const FORM_ACTIONS = Object.freeze({
  * @slot end - ícone depois do rótulo
  * @csspart button - o <button> nativo
  *
- * @attr {'primary'|'secondary'|'accent'|'ghost'} variant - primary (vermelho), secondary (azul), accent (amarelo), ghost (herda a camada)
+ * @attr {'primary'|'secondary'|'accent'|'danger'|'ghost'} variant - primary (cobalto), secondary (vidro claro), accent (âmbar), danger (rubi), ghost (herda a camada)
  * @attr {'sm'|'md'|'lg'} size
  * @attr {'button'|'submit'|'reset'} type
  * @attr {boolean} disabled
@@ -79,7 +79,6 @@ export class VtButton extends LitElement {
         font-size: var(--_font);
         font-weight: var(--vt-font-weight-semibold);
         line-height: 1;
-        letter-spacing: 0.01em;
         color: var(--_ink);
         background: linear-gradient(135deg, var(--vt-sheen) 0%, transparent 55%), var(--_fill);
         ${leadBorder('control')}

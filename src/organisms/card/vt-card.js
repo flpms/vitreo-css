@@ -19,11 +19,13 @@ const SLOTS = Object.freeze(['media', 'header', 'footer']);
  * @csspart body
  * @csspart footer
  *
- * @attr {'neutral'|'red'|'blue'|'yellow'|'emerald'} tone
+ * @attr {'neutral'|'cobalt'|'ruby'|'amber'|'verdigris'|'amethyst'|'moss'} tone
+ * @attr {'soft'|'strong'} emphasis - soft (padrão): vidro tingido; strong: destaque
  */
 export class VtCard extends LitElement {
   static properties = {
     tone: { reflect: true },
+    emphasis: { reflect: true },
     _filled: { state: true },
   };
 
@@ -52,13 +54,13 @@ export class VtCard extends LitElement {
         width: calc(100% + var(--_pad) * 2);
         max-width: none;
         margin: calc(var(--_pad) * -1) calc(var(--_pad) * -1) 0;
-        border-bottom: var(--vt-lead-surface) solid var(--vt-lead);
+        border-bottom: var(--vt-lead-control) solid var(--vt-lead);
       }
 
       ::slotted([slot='header']) {
         margin: 0;
-        font-size: var(--vt-font-size-xl);
-        font-weight: var(--vt-font-weight-light);
+        font-size: var(--vt-font-size-lg);
+        font-weight: var(--vt-font-weight-regular);
         line-height: var(--vt-font-line-height-tight);
         letter-spacing: -0.01em;
       }
@@ -88,6 +90,7 @@ export class VtCard extends LitElement {
   constructor() {
     super();
     this.tone = 'neutral';
+    this.emphasis = 'soft';
     this._filled = Object.freeze({ media: false, header: false, footer: false });
   }
 

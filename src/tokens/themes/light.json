@@ -1,82 +1,442 @@
 {
-  "$description": "Tema claro — vitral à luz do dia: pergaminho, chumbo preto e vidros saturados.",
+  "$description": "Tema claro — vidro antigo à luz do dia: fundo de vidro claro, chumbo grafite, vidros tingidos.",
   "$type": "color",
   "canvas": {
     "$description": "Camada L0 — fundo da página.",
-    "bg": { "$value": "{color.paper.100}" },
-    "fg": { "$value": "{color.ink.900}" },
-    "muted": { "$value": "{color.ink.500}" }
+    "bg": {
+      "$value": "{color.glass.50}"
+    },
+    "fg": {
+      "$value": "{color.lead.950}"
+    },
+    "muted": {
+      "$value": "{color.lead.700}"
+    }
   },
-  "lead": { "$value": "{color.ink.900}", "$description": "Chumbo: contorno escuro de toda peça." },
-  "glint": { "$value": "{color.paper.50}", "$description": "Brilho do vidro: aparece só no degrau de elevação (direita e embaixo) dos controles no hover, junto do chumbo." },
-  "shade": { "$value": "{color.ink.900}", "$description": "Sombra do degrau de elevação. Com o brilho forma um par claro/escuro que aparece sobre qualquer camada." },
+  "lead": {
+    "$value": "{color.lead.800}",
+    "$description": "Chumbo: contorno fino em grafite. Decorativo — o contraste exigido fica com field.edge, foco e elevação."
+  },
+  "glint": {
+    "$value": "{color.white}",
+    "$description": "Brilho do vidro: só no degrau de elevação (direita e embaixo) dos controles no hover."
+  },
+  "shade": {
+    "$value": "{color.lead.950}",
+    "$description": "Sombra do degrau de elevação. Com o brilho forma um par claro/escuro visível sobre qualquer camada."
+  },
   "focus": {
-    "outer": { "$value": "{color.ink.900}" },
-    "inner": { "$value": "{color.yellow.300}" }
+    "outer": {
+      "$value": "{color.lead.950}"
+    },
+    "inner": {
+      "$value": "{color.amber.200}"
+    }
   },
   "light": {
-    "$description": "Luz atrás do vidro — blocos Mondrian decorativos atrás do grid (ideia 2).",
-    "red": { "$value": "{color.red.200}", "$extensions": { "vitreo": { "alpha": 0.9 } } },
-    "blue": { "$value": "{color.blue.200}", "$extensions": { "vitreo": { "alpha": 0.9 } } },
-    "yellow": { "$value": "{color.yellow.200}", "$extensions": { "vitreo": { "alpha": 0.9 } } }
+    "$description": "Luz atrás do vidro — blocos desfocados atrás do grid (ideia 2).",
+    "cobalt": {
+      "$value": "{color.cobalt.100}",
+      "$extensions": {
+        "vitreo": {
+          "alpha": 0.9
+        }
+      }
+    },
+    "ruby": {
+      "$value": "{color.ruby.100}",
+      "$extensions": {
+        "vitreo": {
+          "alpha": 0.9
+        }
+      }
+    },
+    "amber": {
+      "$value": "{color.amber.100}",
+      "$extensions": {
+        "vitreo": {
+          "alpha": 0.9
+        }
+      }
+    }
   },
   "surface": {
-    "$description": "Camada L1 — vidros translúcidos (cards, alertas).",
+    "$description": "Camada L1 — vidros translúcidos. soft: tingido, texto escuro, padrão para dashboards. strong: destaque. accent: cor de ícones/indicadores (≥ 3:1 sobre o vidro).",
     "neutral": {
-      "bg": { "$value": "{color.paper.50}", "$extensions": { "vitreo": { "alpha": 0.72 } } },
-      "fg": { "$value": "{color.ink.900}" },
-      "muted": { "$value": "{color.ink.500}" }
+      "soft": {
+        "bg": {
+          "$value": "{color.white}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.72
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.lead.950}"
+        },
+        "muted": {
+          "$value": "{color.lead.700}"
+        },
+        "accent": {
+          "$value": "{color.lead.700}"
+        }
+      },
+      "strong": {
+        "bg": {
+          "$value": "{color.lead.900}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.94
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.glass.50}"
+        },
+        "muted": {
+          "$value": "{color.glass.300}"
+        },
+        "accent": {
+          "$value": "{color.amber.300}"
+        }
+      }
     },
-    "red": {
-      "bg": { "$value": "{color.red.800}", "$extensions": { "vitreo": { "alpha": 0.92 } } },
-      "fg": { "$value": "{color.white}" },
-      "muted": { "$value": "{color.red.100}" }
+    "cobalt": {
+      "soft": {
+        "bg": {
+          "$value": "{color.cobalt.100}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.78
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.cobalt.950}"
+        },
+        "muted": {
+          "$value": "{color.cobalt.800}"
+        },
+        "accent": {
+          "$value": "{color.cobalt.600}"
+        }
+      },
+      "strong": {
+        "bg": {
+          "$value": "{color.cobalt.800}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.94
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.white}"
+        },
+        "muted": {
+          "$value": "{color.cobalt.100}"
+        },
+        "accent": {
+          "$value": "{color.cobalt.100}"
+        }
+      }
     },
-    "blue": {
-      "bg": { "$value": "{color.blue.800}", "$extensions": { "vitreo": { "alpha": 0.92 } } },
-      "fg": { "$value": "{color.white}" },
-      "muted": { "$value": "{color.blue.100}" }
+    "ruby": {
+      "soft": {
+        "bg": {
+          "$value": "{color.ruby.100}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.78
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.ruby.950}"
+        },
+        "muted": {
+          "$value": "{color.ruby.800}"
+        },
+        "accent": {
+          "$value": "{color.ruby.600}"
+        }
+      },
+      "strong": {
+        "bg": {
+          "$value": "{color.ruby.800}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.94
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.white}"
+        },
+        "muted": {
+          "$value": "{color.ruby.100}"
+        },
+        "accent": {
+          "$value": "{color.ruby.100}"
+        }
+      }
     },
-    "yellow": {
-      "bg": { "$value": "{color.yellow.400}", "$extensions": { "vitreo": { "alpha": 0.92 } } },
-      "fg": { "$value": "{color.ink.900}" },
-      "muted": { "$value": "{color.ink.700}" }
+    "amber": {
+      "soft": {
+        "bg": {
+          "$value": "{color.amber.100}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.78
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.amber.950}"
+        },
+        "muted": {
+          "$value": "{color.amber.800}"
+        },
+        "accent": {
+          "$value": "{color.amber.600}"
+        }
+      },
+      "strong": {
+        "bg": {
+          "$value": "{color.amber.800}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.94
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.white}"
+        },
+        "muted": {
+          "$value": "{color.amber.100}"
+        },
+        "accent": {
+          "$value": "{color.amber.100}"
+        }
+      }
     },
-    "emerald": {
-      "bg": { "$value": "{color.emerald.800}", "$extensions": { "vitreo": { "alpha": 0.95 } } },
-      "fg": { "$value": "{color.white}" },
-      "muted": { "$value": "{color.emerald.100}" }
+    "verdigris": {
+      "soft": {
+        "bg": {
+          "$value": "{color.verdigris.100}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.78
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.verdigris.950}"
+        },
+        "muted": {
+          "$value": "{color.verdigris.800}"
+        },
+        "accent": {
+          "$value": "{color.verdigris.600}"
+        }
+      },
+      "strong": {
+        "bg": {
+          "$value": "{color.verdigris.800}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.94
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.white}"
+        },
+        "muted": {
+          "$value": "{color.verdigris.100}"
+        },
+        "accent": {
+          "$value": "{color.verdigris.100}"
+        }
+      }
+    },
+    "amethyst": {
+      "soft": {
+        "bg": {
+          "$value": "{color.amethyst.100}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.78
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.amethyst.950}"
+        },
+        "muted": {
+          "$value": "{color.amethyst.800}"
+        },
+        "accent": {
+          "$value": "{color.amethyst.600}"
+        }
+      },
+      "strong": {
+        "bg": {
+          "$value": "{color.amethyst.800}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.94
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.white}"
+        },
+        "muted": {
+          "$value": "{color.amethyst.100}"
+        },
+        "accent": {
+          "$value": "{color.amethyst.100}"
+        }
+      }
+    },
+    "moss": {
+      "soft": {
+        "bg": {
+          "$value": "{color.moss.100}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.78
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.moss.950}"
+        },
+        "muted": {
+          "$value": "{color.moss.800}"
+        },
+        "accent": {
+          "$value": "{color.moss.600}"
+        }
+      },
+      "strong": {
+        "bg": {
+          "$value": "{color.moss.800}",
+          "$extensions": {
+            "vitreo": {
+              "alpha": 0.94
+            }
+          }
+        },
+        "fg": {
+          "$value": "{color.white}"
+        },
+        "muted": {
+          "$value": "{color.moss.100}"
+        },
+        "accent": {
+          "$value": "{color.moss.100}"
+        }
+      }
     }
   },
   "control": {
     "$description": "Camada L2 — preenchimentos sólidos de botões.",
     "primary": {
-      "bg": { "$value": "{color.red.700}" },
-      "bg-hover": { "$value": "{color.red.800}" },
-      "fg": { "$value": "{color.white}" }
+      "bg": {
+        "$value": "{color.cobalt.700}"
+      },
+      "bg-hover": {
+        "$value": "{color.cobalt.800}"
+      },
+      "fg": {
+        "$value": "{color.white}"
+      }
     },
     "secondary": {
-      "bg": { "$value": "{color.blue.700}" },
-      "bg-hover": { "$value": "{color.blue.800}" },
-      "fg": { "$value": "{color.white}" }
+      "bg": {
+        "$value": "{color.white}"
+      },
+      "bg-hover": {
+        "$value": "{color.glass.100}"
+      },
+      "fg": {
+        "$value": "{color.lead.950}"
+      }
     },
     "accent": {
-      "bg": { "$value": "{color.yellow.400}" },
-      "bg-hover": { "$value": "{color.yellow.500}" },
-      "fg": { "$value": "{color.ink.900}" }
+      "bg": {
+        "$value": "{color.amber.300}"
+      },
+      "bg-hover": {
+        "$value": "{color.amber.400}"
+      },
+      "fg": {
+        "$value": "{color.lead.950}"
+      }
+    },
+    "danger": {
+      "bg": {
+        "$value": "{color.ruby.700}"
+      },
+      "bg-hover": {
+        "$value": "{color.ruby.800}"
+      },
+      "fg": {
+        "$value": "{color.white}"
+      }
     }
   },
   "field": {
     "$description": "Camada L2 — campos de texto.",
-    "bg": { "$value": "{color.paper.50}" },
-    "fg": { "$value": "{color.ink.900}" },
-    "placeholder": { "$value": "{color.ink.500}" },
-    "edge": { "$value": "{color.ink.900}", "$description": "Contorno do campo: ≥ 3:1 contra qualquer camada (WCAG 1.4.11)." },
-    "invalid": { "$value": "{color.red.700}" }
+    "bg": {
+      "$value": "{color.white}"
+    },
+    "fg": {
+      "$value": "{color.lead.950}"
+    },
+    "placeholder": {
+      "$value": "{color.lead.600}"
+    },
+    "invalid": {
+      "$value": "{color.ruby.600}"
+    },
+    "edge": {
+      "$value": "{color.lead.500}",
+      "$description": "Contorno do campo: ≥ 3:1 contra qualquer camada (WCAG 1.4.11)."
+    }
+  },
+  "data": {
+    "$description": "Paleta categórica para gráficos: ≥ 3:1 contra o fundo e o vidro neutro (WCAG 1.4.11).",
+    "1": {
+      "$value": "{color.cobalt.500}"
+    },
+    "2": {
+      "$value": "{color.ruby.500}"
+    },
+    "3": {
+      "$value": "{color.amber.500}"
+    },
+    "4": {
+      "$value": "{color.verdigris.500}"
+    },
+    "5": {
+      "$value": "{color.amethyst.500}"
+    },
+    "6": {
+      "$value": "{color.moss.500}"
+    }
   },
   "sheen": {
-    "$description": "Reflexo diagonal do vidro, aplicado sobre superfícies e botões.",
+    "$description": "Reflexo diagonal do vidro.",
     "$value": "{color.white}",
-    "$extensions": { "vitreo": { "alpha": 0.1 } }
+    "$extensions": {
+      "vitreo": {
+        "alpha": 0.08
+      }
+    }
   }
 }

@@ -75,3 +75,46 @@ export const toCss = ({ rgb, alpha }) => {
   const { r, g, b } = rgb;
   return `rgb(${r} ${g} ${b} / ${alpha})`;
 };
+
+/** sRGB linear → sRGB codificado (0–1). */
+const encode = c => (c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055);
+
+/**
+ * OKLCH → sRGB linear (pode sair do gamut).
+ * @see https://bottosson.github.io/posts/oklab/
+ */
+const oklchToLinear = (l, c, h) => {
+  const a = c * Math.cos((h * Math.PI) / 180);
+  const b = c * Math.sin((h * Math.PI) / 180);
+  const l_ = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+  const m_ = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+  const s_ = (l - 0.0894841775 * a - 1.291485548 * b) ** 3;
+  return [
+    4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_,
+    -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_,
+    -0.0041960863 * l_ - 0.7034186147 * m_ + 1.707614701 * s_,
+  ];
+};
+
+const inGamut = channels => channels.every(v => v >= -1e-4 && v <= 1 + 1e-4);
+
+/**
+ * OKLCH → sRGB, reduzindo só o croma (busca binária) quando a cor cai fora do gamut.
+ * Mantém luminosidade e matiz — o que importa para contraste e harmonia.
+ * @param {number} l luminosidade 0–1
+ * @param {number} c croma
+ * @param {number} h matiz em graus
+ * @returns {Rgb}
+ */
+export const oklchToRgb = (l, c, h) => {
+  const fit = Array.from({ length: 24 }).reduce(
+    ({ low, high }) => {
+      const mid = (low + high) / 2;
+      return inGamut(oklchToLinear(l, mid, h)) ? { low: mid, high } : { low, high: mid };
+    },
+    { low: 0, high: c },
+  );
+  const chroma = inGamut(oklchToLinear(l, c, h)) ? c : fit.low;
+  const [r, g, b] = oklchToLinear(l, chroma, h).map(v => Math.round(Math.min(1, Math.max(0, encode(v))) * 255));
+  return { r, g, b };
+};

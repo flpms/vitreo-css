@@ -6,38 +6,50 @@
  *   L1 surface — vidro translúcido: cards e alertas → contrastLayer()
  *   L2 control — botões e campos → controlFill(), fieldControl()
  *
- * Toda camada publica o seu contexto em --vt-ctx-bg / --vt-ctx-fg / --vt-ctx-muted.
- * Custom properties atravessam shadow DOM e slots, então um botão "ghost" dentro
- * de um card azul lê automaticamente o texto validado para o vidro azul.
+ * Toda camada publica o seu contexto em --vt-ctx-bg / --vt-ctx-fg / --vt-ctx-muted /
+ * --vt-ctx-accent. Custom properties atravessam shadow DOM e slots, então um botão
+ * "ghost" dentro de um card cobalto lê automaticamente o texto validado para aquele vidro.
  * Os pares de cor usados aqui são exatamente os validados por scripts/contrast-check.mjs.
  */
 import { css, unsafeCSS } from 'lit';
 
-/** Tons de vidro disponíveis na camada L1. */
-export const SURFACE_TONES = Object.freeze(['neutral', 'red', 'blue', 'yellow', 'emerald']);
+/**
+ * Tons de vidro da camada L1 (famílias de palette.json).
+ * neutral: vidro claro · cobalt: azul de Chartres · ruby: rubi · amber: âmbar
+ * verdigris: verdete · amethyst: ametista · moss: musgo
+ */
+export const SURFACE_TONES = Object.freeze(['neutral', 'cobalt', 'ruby', 'amber', 'verdigris', 'amethyst', 'moss']);
+
+/** Intensidade do vidro: soft (tingido, padrão) ou strong (destaque). */
+export const SURFACE_EMPHASES = Object.freeze(['soft', 'strong']);
 
 /** Preenchimentos sólidos da camada L2. */
-export const CONTROL_VARIANTS = Object.freeze(['primary', 'secondary', 'accent']);
+export const CONTROL_VARIANTS = Object.freeze(['primary', 'secondary', 'accent', 'danger']);
 
 const identity = list => Object.freeze(Object.fromEntries(list.map(item => [item, item])));
 
-const surfaceContext = tone => `
-  --vt-ctx-bg: var(--vt-surface-${tone}-bg);
-  --vt-ctx-fg: var(--vt-surface-${tone}-fg);
-  --vt-ctx-muted: var(--vt-surface-${tone}-muted);`;
+const CONTEXT_ROLES = Object.freeze(['bg', 'fg', 'muted', 'accent']);
+
+const surfaceContext = (tone, emphasis) =>
+  CONTEXT_ROLES.map(role => `\n  --vt-ctx-${role}: var(--vt-surface-${tone}-${emphasis}-${role});`).join('');
 
 /**
  * Transforma o host em uma camada L1 e publica o contexto para os filhos.
- * Gera um seletor :host([atributo="valor"]) por entrada do mapa.
+ * Gera :host([atributo="valor"]) para a ênfase soft e :host([atributo="valor"][emphasis="strong"]).
  * @param {{ attribute?: string, tones?: Record<string, string>, fallback?: string }} [options]
  *   attribute: atributo que escolhe o tom; tones: valor do atributo → tom de superfície.
  * @returns {import('lit').CSSResult}
  */
 export const contrastLayer = ({ attribute = 'tone', tones = identity(SURFACE_TONES), fallback = 'neutral' } = {}) => {
-  const rules = Object.entries(tones)
-    .map(([value, tone]) => `:host([${attribute}="${value}"]) {${surfaceContext(tone)}\n}`)
-    .join('\n');
-  return unsafeCSS(`:host {${surfaceContext(fallback)}\n  color: var(--vt-ctx-fg);\n}\n${rules}`);
+  const rules = Object.entries(tones).flatMap(([value, tone]) => [
+    `:host([${attribute}="${value}"]) {${surfaceContext(tone, 'soft')}\n}`,
+    `:host([${attribute}="${value}"][emphasis="strong"]) {${surfaceContext(tone, 'strong')}\n}`,
+  ]);
+  const base = [
+    `:host {${surfaceContext(fallback, 'soft')}\n  color: var(--vt-ctx-fg);\n}`,
+    `:host([emphasis="strong"]) {${surfaceContext(fallback, 'strong')}\n}`,
+  ];
+  return unsafeCSS([...base, ...rules].join('\n'));
 };
 
 /**
@@ -102,9 +114,9 @@ export const raise = selector => unsafeCSS(`
  */
 export const focusRing = selector => unsafeCSS(`
   ${selector}:focus-visible {
-    outline: 3px solid var(--vt-focus-outer);
-    outline-offset: 3px;
-    box-shadow: 0 0 0 3px var(--vt-focus-inner);
+    outline: var(--vt-focus-width) solid var(--vt-focus-outer);
+    outline-offset: var(--vt-focus-offset);
+    box-shadow: 0 0 0 var(--vt-focus-offset) var(--vt-focus-inner);
   }
 `);
 

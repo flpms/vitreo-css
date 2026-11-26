@@ -32,7 +32,8 @@ export const fieldControlStyles = css`
   }
 
   input[aria-invalid='true'] {
-    border-left: 0.5rem solid var(--vt-field-invalid);
+    border-color: var(--vt-field-invalid);
+    box-shadow: inset 0 calc(var(--vt-lead-control) * -1) 0 var(--vt-field-invalid);
   }
 
   input:disabled {

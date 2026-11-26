@@ -1,4 +1,6 @@
-# Vítreo DS v0.0.1 (branch `feat-treomon`)
+# Vítreo DS
+
+Versão atual em `package.json`; histórico de cada iteração em [`CHANGELOG.md`](CHANGELOG.md).
 
 Design system em [Lit](https://lit.dev) inspirado em **vitrais de catedral**, **Metro UI** e **Mondrian**: chumbo fino, vidro translúcido, uma paleta de oito vidros em OKLCH e contraste calculado pela WCAG 2.
 

@@ -1,0 +1,71 @@
+/*
+ * Base do Vítreo — camada L0 (canvas) e tipografia de documento.
+ * Carregue depois de tokens.css:
+ *   <link rel="stylesheet" href="vitreo-ds/tokens.css">
+ *   <link rel="stylesheet" href="vitreo-ds/base.css">
+ */
+
+html {
+  font-size: 100%; /* base de 16px respeitando a preferência do usuário */
+  -webkit-text-size-adjust: 100%;
+}
+
+.vt-canvas {
+  margin: 0;
+  background: var(--vt-canvas-bg);
+  color: var(--vt-canvas-fg);
+  font-family: var(--vt-font-family-base);
+  font-size: var(--vt-font-size-md);
+  line-height: var(--vt-font-line-height-base);
+  --vt-ctx-bg: var(--vt-canvas-bg);
+  --vt-ctx-fg: var(--vt-canvas-fg);
+  --vt-ctx-muted: var(--vt-canvas-muted);
+}
+
+/* Títulos ao estilo Metro: grandes, leves, sem enfeite.
+   :not([slot]) — estilos do documento vencem ::slotted, então títulos dentro
+   de componentes (ex.: slot="header" do vt-card) ficam por conta do componente. */
+.vt-canvas :where(h1, h2, h3, h4):where(:not([slot])) {
+  margin: 0 0 var(--vt-space-4);
+  font-weight: var(--vt-font-weight-light);
+  line-height: var(--vt-font-line-height-tight);
+  letter-spacing: -0.01em;
+}
+.vt-canvas :where(h1:not([slot])) { font-size: var(--vt-font-size-4xl); }
+.vt-canvas :where(h2:not([slot])) { font-size: var(--vt-font-size-3xl); }
+.vt-canvas :where(h3:not([slot])) { font-size: var(--vt-font-size-xl); font-weight: var(--vt-font-weight-semibold); }
+.vt-canvas :where(h4:not([slot])) { font-size: var(--vt-font-size-lg); font-weight: var(--vt-font-weight-semibold); }
+
+.vt-canvas :where(p) {
+  margin: 0 0 var(--vt-space-4);
+  max-width: 68ch;
+}
+.vt-canvas :where(p:last-child) {
+  margin-bottom: 0;
+}
+
+.vt-canvas :where(a) {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.vt-muted {
+  color: var(--vt-ctx-muted);
+}
+
+.vt-label {
+  font-size: var(--vt-font-size-xs);
+  font-weight: var(--vt-font-weight-bold);
+  letter-spacing: var(--vt-font-tracking-label);
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

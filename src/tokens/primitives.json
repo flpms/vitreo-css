@@ -1,0 +1,140 @@
+{
+  "$description": "Tokens primitivos do Vítreo DS. Valores brutos: nunca usados direto pelos componentes, só via tokens semânticos (themes/*.json).",
+  "color": {
+    "$type": "color",
+    "white": { "$value": "#FFFFFF" },
+    "paper": {
+      "50": { "$value": "#FFFDF7" },
+      "100": { "$value": "#F5F1E6" },
+      "300": { "$value": "#D9D3C4" },
+      "400": { "$value": "#B9B3A6" }
+    },
+    "ink": {
+      "500": { "$value": "#4A4A52" },
+      "700": { "$value": "#26262E" },
+      "800": { "$value": "#1A1A21" },
+      "900": { "$value": "#111111" },
+      "950": { "$value": "#0B0B0F" }
+    },
+    "red": {
+      "100": { "$value": "#FFE6E2" },
+      "200": { "$value": "#FFC9C2" },
+      "300": { "$value": "#FF7A6F" },
+      "400": { "$value": "#FF5A4E" },
+      "600": { "$value": "#D62718" },
+      "700": { "$value": "#B31C10" },
+      "800": { "$value": "#8E160C" },
+      "900": { "$value": "#4A0D07" }
+    },
+    "blue": {
+      "100": { "$value": "#E3ECFD" },
+      "200": { "$value": "#C4D6FA" },
+      "300": { "$value": "#7FA6F3" },
+      "400": { "$value": "#5B8DEF" },
+      "700": { "$value": "#1C4FA0" },
+      "800": { "$value": "#163E80" },
+      "900": { "$value": "#0C2350" }
+    },
+    "yellow": {
+      "200": { "$value": "#FFEAA0" },
+      "300": { "$value": "#FFD43B" },
+      "400": { "$value": "#F2C318" },
+      "500": { "$value": "#E0AE00" },
+      "900": { "$value": "#4A3A00" }
+    },
+    "emerald": {
+      "100": { "$value": "#DDF7EA" },
+      "200": { "$value": "#BDEFD6" },
+      "300": { "$value": "#4FDC9C" },
+      "400": { "$value": "#2FD08A" },
+      "700": { "$value": "#00804A" },
+      "800": { "$value": "#005533" },
+      "900": { "$value": "#003D24" }
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "base": { "$value": ["Segoe UI", "system-ui", "-apple-system", "Roboto", "Helvetica Neue", "Arial", "sans-serif"] }
+    },
+    "size": {
+      "$type": "dimension",
+      "$description": "Escala modular 1.25 (terça maior) sobre base de 16px.",
+      "xs": { "$value": "0.8rem" },
+      "md": { "$value": "1rem" },
+      "lg": { "$value": "1.25rem" },
+      "xl": { "$value": "1.5625rem" },
+      "2xl": { "$value": "1.953rem" },
+      "3xl": { "$value": "2.441rem" },
+      "4xl": { "$value": "3.052rem" }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "light": { "$value": 300 },
+      "regular": { "$value": 400 },
+      "semibold": { "$value": 600 },
+      "bold": { "$value": 800 }
+    },
+    "line-height": {
+      "$type": "number",
+      "tight": { "$value": 1.15 },
+      "base": { "$value": 1.5 }
+    },
+    "tracking": {
+      "$type": "dimension",
+      "label": { "$value": "0.06em" }
+    }
+  },
+  "space": {
+    "$type": "dimension",
+    "$description": "Passo de 4px.",
+    "1": { "$value": "0.25rem" },
+    "2": { "$value": "0.5rem" },
+    "3": { "$value": "0.75rem" },
+    "4": { "$value": "1rem" },
+    "5": { "$value": "1.5rem" },
+    "6": { "$value": "2rem" },
+    "7": { "$value": "3rem" },
+    "8": { "$value": "4rem" }
+  },
+  "lead": {
+    "$type": "dimension",
+    "$description": "Espessura do 'chumbo' — a moldura escura que prende cada vidro.",
+    "glint": { "$value": "1px" },
+    "control": { "$value": "3px" },
+    "surface": { "$value": "4px" },
+    "bar": { "$value": "12px" }
+  },
+  "opacity": {
+    "$type": "number",
+    "ghost-hover": { "$value": 0.12, "$description": "Véu da cor do texto no hover do botão ghost (validado em contrast-check)." },
+    "disabled": { "$value": 0.45, "$description": "Componentes inativos são isentos de contraste (WCAG 1.4.3), mas seguem legíveis." }
+  },
+  "radius": {
+    "$type": "dimension",
+    "none": { "$value": "0" }
+  },
+  "glass": {
+    "blur": { "$type": "dimension", "$value": "14px" }
+  },
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "fast": { "$value": "120ms" },
+      "base": { "$value": "200ms" }
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "standard": { "$value": [0.2, 0, 0, 1] }
+    }
+  },
+  "grid": {
+    "columns": { "$type": "number", "$value": 21 },
+    "gutter": {
+      "$type": "dimension",
+      "metro": { "$value": "1.5rem" },
+      "metro-sm": { "$value": "1rem" },
+      "light": { "$value": "0.75rem" }
+    }
+  }
+}

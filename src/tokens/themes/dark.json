@@ -1,0 +1,80 @@
+{
+  "$description": "Tema escuro — catedral à noite: fundo quase preto, vidros acesos como joias.",
+  "$type": "color",
+  "canvas": {
+    "$description": "Camada L0 — fundo da página.",
+    "bg": { "$value": "{color.ink.950}" },
+    "fg": { "$value": "{color.paper.100}" },
+    "muted": { "$value": "{color.paper.400}" }
+  },
+  "lead": { "$value": "{color.ink.950}", "$description": "Chumbo: contorno escuro de toda peça." },
+  "glint": { "$value": "{color.paper.400}", "$description": "Brilho da solda: no escuro é ele que desenha o contorno." },
+  "focus": {
+    "outer": { "$value": "{color.yellow.300}" },
+    "inner": { "$value": "{color.ink.950}" }
+  },
+  "light": {
+    "$description": "Luz atrás do vidro — blocos Mondrian decorativos atrás do grid (ideia 2).",
+    "red": { "$value": "{color.red.900}", "$extensions": { "vitreo": { "alpha": 0.9 } } },
+    "blue": { "$value": "{color.blue.900}", "$extensions": { "vitreo": { "alpha": 0.9 } } },
+    "yellow": { "$value": "{color.yellow.900}", "$extensions": { "vitreo": { "alpha": 0.9 } } }
+  },
+  "surface": {
+    "$description": "Camada L1 — vidros translúcidos (cards, alertas).",
+    "neutral": {
+      "bg": { "$value": "{color.ink.800}", "$extensions": { "vitreo": { "alpha": 0.72 } } },
+      "fg": { "$value": "{color.paper.100}" },
+      "muted": { "$value": "{color.paper.400}" }
+    },
+    "red": {
+      "bg": { "$value": "{color.red.800}", "$extensions": { "vitreo": { "alpha": 0.9 } } },
+      "fg": { "$value": "{color.paper.50}" },
+      "muted": { "$value": "{color.red.200}" }
+    },
+    "blue": {
+      "bg": { "$value": "{color.blue.800}", "$extensions": { "vitreo": { "alpha": 0.9 } } },
+      "fg": { "$value": "{color.paper.50}" },
+      "muted": { "$value": "{color.blue.200}" }
+    },
+    "yellow": {
+      "bg": { "$value": "{color.yellow.300}", "$extensions": { "vitreo": { "alpha": 0.92 } } },
+      "fg": { "$value": "{color.ink.900}" },
+      "muted": { "$value": "{color.ink.700}" }
+    },
+    "emerald": {
+      "bg": { "$value": "{color.emerald.800}", "$extensions": { "vitreo": { "alpha": 0.9 } } },
+      "fg": { "$value": "{color.paper.50}" },
+      "muted": { "$value": "{color.emerald.200}" }
+    }
+  },
+  "control": {
+    "$description": "Camada L2 — preenchimentos sólidos de botões (no escuro, vidros acesos).",
+    "primary": {
+      "bg": { "$value": "{color.red.400}" },
+      "bg-hover": { "$value": "{color.red.300}" },
+      "fg": { "$value": "{color.ink.950}" }
+    },
+    "secondary": {
+      "bg": { "$value": "{color.blue.400}" },
+      "bg-hover": { "$value": "{color.blue.300}" },
+      "fg": { "$value": "{color.ink.950}" }
+    },
+    "accent": {
+      "bg": { "$value": "{color.yellow.300}" },
+      "bg-hover": { "$value": "{color.yellow.200}" },
+      "fg": { "$value": "{color.ink.950}" }
+    }
+  },
+  "field": {
+    "$description": "Camada L2 — campos de texto.",
+    "bg": { "$value": "{color.ink.800}" },
+    "fg": { "$value": "{color.paper.100}" },
+    "placeholder": { "$value": "{color.paper.400}" },
+    "invalid": { "$value": "{color.red.400}" }
+  },
+  "sheen": {
+    "$description": "Reflexo diagonal do vidro, aplicado sobre superfícies e botões.",
+    "$value": "{color.white}",
+    "$extensions": { "vitreo": { "alpha": 0.08 } }
+  }
+}

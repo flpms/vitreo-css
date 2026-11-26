@@ -7,7 +7,7 @@ import { defineElement } from '../../utils/define.js';
 /**
  * Estilo do controle de texto (camada L2), compartilhado por vt-input e vt-field.
  * O campo tem fundo próprio (--vt-field-bg): o texto digitado não depende da camada
- * de baixo; só o contorno (chumbo + brilho) precisa contrastar com ela.
+ * de baixo; só o contorno (--vt-field-edge) precisa contrastar com ela.
  */
 export const fieldControlStyles = css`
   input {
@@ -22,6 +22,7 @@ export const fieldControlStyles = css`
     color: var(--vt-field-fg);
     background: var(--vt-field-bg);
     ${leadBorder('control')}
+    border-color: var(--vt-field-edge);
     transition: border-color var(--vt-motion-duration-fast) var(--vt-motion-easing-standard);
   }
 

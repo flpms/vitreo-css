@@ -29,7 +29,6 @@ code {
   padding-block: var(--vt-space-7) var(--vt-space-6);
   margin-bottom: var(--vt-space-7);
   border-bottom: var(--vt-lead-surface) solid var(--vt-lead);
-  box-shadow: 0 var(--vt-lead-glint) 0 var(--vt-glint);
   background:
     linear-gradient(90deg,
       var(--vt-color-red-600) 0 38.1%,
@@ -88,7 +87,6 @@ code {
   padding: 0 var(--vt-space-4);
   border: var(--vt-lead-control) solid var(--vt-lead);
   margin-left: calc(var(--vt-lead-control) * -1);
-  box-shadow: 0 0 0 var(--vt-lead-glint) var(--vt-glint);
   font-weight: var(--vt-font-weight-semibold);
 }
 .theme-switch input:checked + span {

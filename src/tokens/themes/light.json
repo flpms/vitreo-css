@@ -8,7 +8,8 @@
     "muted": { "$value": "{color.ink.500}" }
   },
   "lead": { "$value": "{color.ink.900}", "$description": "Chumbo: contorno escuro de toda peça." },
-  "glint": { "$value": "{color.paper.50}", "$description": "Brilho da solda: filete claro fora do chumbo. Junto com o chumbo forma um contorno bicolor visível sobre qualquer fundo." },
+  "glint": { "$value": "{color.paper.50}", "$description": "Brilho do vidro: aparece só no degrau de elevação (direita e embaixo) dos controles no hover, junto do chumbo." },
+  "shade": { "$value": "{color.ink.900}", "$description": "Sombra do degrau de elevação. Com o brilho forma um par claro/escuro que aparece sobre qualquer camada." },
   "focus": {
     "outer": { "$value": "{color.ink.900}" },
     "inner": { "$value": "{color.yellow.300}" }
@@ -70,6 +71,7 @@
     "bg": { "$value": "{color.paper.50}" },
     "fg": { "$value": "{color.ink.900}" },
     "placeholder": { "$value": "{color.ink.500}" },
+    "edge": { "$value": "{color.ink.900}", "$description": "Contorno do campo: ≥ 3:1 contra qualquer camada (WCAG 1.4.11)." },
     "invalid": { "$value": "{color.red.700}" }
   },
   "sheen": {

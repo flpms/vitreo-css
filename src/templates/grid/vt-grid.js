@@ -75,10 +75,8 @@ export class VtGrid extends LitElement {
       :host([mode='lead']) {
         --_gap: var(--vt-lead-surface);
         --vt-card-lead: 0px;
-        --vt-card-lead-glint: 0px;
         background: var(--vt-lead);
         border: var(--vt-lead-surface) solid var(--vt-lead);
-        box-shadow: 0 0 0 var(--vt-lead-glint) var(--vt-glint);
       }
 
       :host([mode='lead']) ::slotted(*) {

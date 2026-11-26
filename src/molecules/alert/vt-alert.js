@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg, nothing } from 'lit';
-import { contrastLayer, focusRing, glass, hostBase, leadBorder } from '../../styles/mixins.js';
+import { contrastLayer, focusRing, glass, hostBase, leadBorder, raise } from '../../styles/mixins.js';
 import { defineElement } from '../../utils/define.js';
 
 /** Variante → tom do vidro (camada L1). */
@@ -115,6 +115,7 @@ export class VtAlert extends LitElement {
         stroke-width: 2.5;
       }
 
+      ${raise('.close')}
       ${focusRing('.close')}
     `,
   ];

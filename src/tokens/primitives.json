@@ -16,6 +16,10 @@
       "900": { "$value": "#111111" },
       "950": { "$value": "#0B0B0F" }
     },
+    "pewter": {
+      "300": { "$value": "#B3AD9F" },
+      "700": { "$value": "#55524C" }
+    },
     "red": {
       "100": { "$value": "#FFE6E2" },
       "200": { "$value": "#FFC9C2" },
@@ -100,7 +104,6 @@
   "lead": {
     "$type": "dimension",
     "$description": "Espessura do 'chumbo' — a moldura escura que prende cada vidro.",
-    "glint": { "$value": "1px" },
     "control": { "$value": "3px" },
     "surface": { "$value": "4px" },
     "bar": { "$value": "12px" }
@@ -109,6 +112,11 @@
     "$type": "number",
     "ghost-hover": { "$value": 0.12, "$description": "Véu da cor do texto no hover do botão ghost (validado em contrast-check)." },
     "disabled": { "$value": 0.45, "$description": "Componentes inativos são isentos de contraste (WCAG 1.4.3), mas seguem legíveis." }
+  },
+  "elevation": {
+    "$type": "dimension",
+    "$description": "Deslocamento do degrau de elevação (direita e embaixo) dos controles no hover.",
+    "raise": { "$value": "2px" }
   },
   "radius": {
     "$type": "dimension",

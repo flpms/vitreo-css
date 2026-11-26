@@ -1,5 +1,5 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
-import { controlFill, focusRing, hostBase, leadBorder } from '../../styles/mixins.js';
+import { controlFill, focusRing, hostBase, leadBorder, raise } from '../../styles/mixins.js';
 import { defineElement } from '../../utils/define.js';
 
 /**
@@ -84,23 +84,17 @@ export class VtButton extends LitElement {
         background: linear-gradient(135deg, var(--vt-sheen) 0%, transparent 55%), var(--_fill);
         ${leadBorder('control')}
         cursor: pointer;
-        transition:
-          background-color var(--vt-motion-duration-fast) var(--vt-motion-easing-standard),
-          transform var(--vt-motion-duration-fast) var(--vt-motion-easing-standard);
       }
+
+      ${raise('button')}
 
       button:hover {
         --_fill: var(--_fill-hover);
       }
 
-      button:active {
-        transform: translateY(1px);
-      }
-
       button:disabled {
         opacity: var(--vt-opacity-disabled);
         cursor: not-allowed;
-        transform: none;
       }
 
       button:disabled:hover {

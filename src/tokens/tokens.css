@@ -11,6 +11,8 @@
   --vt-color-ink-800: #1A1A21;
   --vt-color-ink-900: #111111;
   --vt-color-ink-950: #0B0B0F;
+  --vt-color-pewter-300: #B3AD9F;
+  --vt-color-pewter-700: #55524C;
   --vt-color-red-100: #FFE6E2;
   --vt-color-red-200: #FFC9C2;
   --vt-color-red-300: #FF7A6F;
@@ -61,12 +63,12 @@
   --vt-space-6: 2rem;
   --vt-space-7: 3rem;
   --vt-space-8: 4rem;
-  --vt-lead-glint: 1px;
   --vt-lead-control: 3px;
   --vt-lead-surface: 4px;
   --vt-lead-bar: 12px;
   --vt-opacity-ghost-hover: 0.12;
   --vt-opacity-disabled: 0.45;
+  --vt-elevation-raise: 2px;
   --vt-radius-none: 0;
   --vt-glass-blur: 14px;
   --vt-motion-duration-fast: 120ms;
@@ -86,6 +88,7 @@
   --vt-canvas-muted: #4A4A52;
   --vt-lead: #111111;
   --vt-glint: #FFFDF7;
+  --vt-shade: #111111;
   --vt-focus-outer: #111111;
   --vt-focus-inner: #FFD43B;
   --vt-light-red: rgb(255 201 194 / 0.9);
@@ -118,6 +121,7 @@
   --vt-field-bg: #FFFDF7;
   --vt-field-fg: #111111;
   --vt-field-placeholder: #4A4A52;
+  --vt-field-edge: #111111;
   --vt-field-invalid: #B31C10;
   --vt-sheen: rgb(255 255 255 / 0.1);
   --vt-ctx-bg: var(--vt-canvas-bg);
@@ -131,8 +135,9 @@
     --vt-canvas-bg: #0B0B0F;
     --vt-canvas-fg: #F5F1E6;
     --vt-canvas-muted: #B9B3A6;
-    --vt-lead: #0B0B0F;
-    --vt-glint: #B9B3A6;
+    --vt-lead: #55524C;
+    --vt-glint: #F5F1E6;
+    --vt-shade: #0B0B0F;
     --vt-focus-outer: #FFD43B;
     --vt-focus-inner: #0B0B0F;
     --vt-light-red: rgb(74 13 7 / 0.9);
@@ -165,6 +170,7 @@
     --vt-field-bg: #1A1A21;
     --vt-field-fg: #F5F1E6;
     --vt-field-placeholder: #B9B3A6;
+    --vt-field-edge: #B3AD9F;
     --vt-field-invalid: #FF5A4E;
     --vt-sheen: rgb(255 255 255 / 0.08);
     --vt-ctx-bg: var(--vt-canvas-bg);
@@ -178,8 +184,9 @@
   --vt-canvas-bg: #0B0B0F;
   --vt-canvas-fg: #F5F1E6;
   --vt-canvas-muted: #B9B3A6;
-  --vt-lead: #0B0B0F;
-  --vt-glint: #B9B3A6;
+  --vt-lead: #55524C;
+  --vt-glint: #F5F1E6;
+  --vt-shade: #0B0B0F;
   --vt-focus-outer: #FFD43B;
   --vt-focus-inner: #0B0B0F;
   --vt-light-red: rgb(74 13 7 / 0.9);
@@ -212,6 +219,7 @@
   --vt-field-bg: #1A1A21;
   --vt-field-fg: #F5F1E6;
   --vt-field-placeholder: #B9B3A6;
+  --vt-field-edge: #B3AD9F;
   --vt-field-invalid: #FF5A4E;
   --vt-sheen: rgb(255 255 255 / 0.08);
   --vt-ctx-bg: var(--vt-canvas-bg);

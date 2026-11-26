@@ -11,8 +11,13 @@
  * reflexo (sheen) por cima — e ficamos com o pior caso.
  *
  * Critérios:
- *   1.4.3  texto normal              ≥ 4.5:1
- *   1.4.11 contorno de componente/foco ≥ 3:1
+ *   1.4.3  texto normal                          ≥ 4.5:1
+ *   1.4.11 contorno de campo, foco e elevação    ≥ 3:1
+ *
+ * Botões são identificados pelo próprio rótulo (já validado em 4.5:1), então o
+ * chumbo deles é estético. Campos de texto não têm rótulo dentro: o contorno
+ * (chumbo ou o próprio fundo do campo) precisa de 3:1 contra a camada.
+ * Cards e alertas não são interativos: a moldura é decorativa.
  *
  * Uso: node scripts/contrast-check.mjs [--report docs/contrast-report.md]
  */
@@ -51,7 +56,7 @@ const worst = checks => checks.reduce((min, check) => (check.ratio < min.ratio ?
 const measure = (fg, candidates) =>
   worst(candidates.map(({ name, rgb }) => ({ ratio: contrast(fg, rgb), on: name, bg: rgb })));
 
-/** Contorno bicolor (chumbo + brilho): basta uma das cores contrastar com o vizinho. */
+/** Par de cores lado a lado (anel de foco, degrau de elevação, campo + chumbo): basta uma contrastar com o vizinho. */
 const ringRatio = (a, b, against) => Math.max(contrast(a, against), contrast(b, against));
 
 const textCheck = ({ theme, layer, label, fg, candidates }) => {
@@ -73,8 +78,9 @@ const surfaceCandidates = (colors, tone) =>
 const checksForTheme = (theme, colors, ghostHoverAlpha) => {
   const rgb = path => colors[path].rgb;
   const canvasCandidates = surfaceBackdrops(colors);
-  const lead = rgb('lead');
   const glint = rgb('glint');
+  const fieldBg = rgb('field.bg');
+  const fieldEdge = rgb('field.edge');
 
   const canvas = [
     textCheck({ theme, layer: 'L0', label: 'canvas · texto', fg: rgb('canvas.fg'), candidates: canvasCandidates }),
@@ -86,7 +92,6 @@ const checksForTheme = (theme, colors, ghostHoverAlpha) => {
     return [
       textCheck({ theme, layer: 'L1', label: `surface ${tone} · texto`, fg: rgb(`surface.${tone}.fg`), candidates }),
       textCheck({ theme, layer: 'L1', label: `surface ${tone} · texto suave`, fg: rgb(`surface.${tone}.muted`), candidates }),
-      ringCheck({ theme, layer: 'L1', label: `surface ${tone} · chumbo+brilho vs camada`, a: lead, b: glint, candidates: canvasCandidates }),
     ];
   });
 
@@ -121,7 +126,8 @@ const checksForTheme = (theme, colors, ghostHoverAlpha) => {
   ];
 
   const rings = [
-    ringCheck({ theme, layer: 'L2', label: 'controle · chumbo+brilho vs camada', a: lead, b: glint, candidates: placements }),
+    ringCheck({ theme, layer: 'L2', label: 'campo · contorno (borda ou fundo) vs camada', a: fieldEdge, b: fieldBg, candidates: placements }),
+    ringCheck({ theme, layer: 'L2', label: 'hover · degrau de elevação (brilho + sombra) vs camada', a: glint, b: rgb('shade'), candidates: placements }),
     ringCheck({ theme, layer: 'L2', label: 'foco · anel bicolor vs camada', a: rgb('focus.outer'), b: rgb('focus.inner'), candidates: placements }),
     {
       theme, layer: 'L2', label: 'foco · externo vs interno', kind: 'contorno', min: NON_TEXT_MIN,
@@ -143,7 +149,7 @@ const toMarkdown = checks => [
   '',
   'Gerado por `npm run contrast`. Cada linha mostra o **pior caso**: vidros translúcidos são',
   'compostos sobre todos os fundos possíveis (canvas e blocos de luz) e com o reflexo (sheen) aplicado.',
-  'Contornos bicolores (chumbo + brilho, anel de foco) passam se uma das cores atinge 3:1 contra o vizinho.',
+  'Pares lado a lado (anel de foco, degrau de elevação do hover, campo + chumbo) passam se uma das cores atinge 3:1 contra o vizinho.',
   '',
   '| Tema | Camada | Par | Tipo | Frente | Fundo (pior caso) | Razão | Mínimo | |',
   '|---|---|---|---|---|---|---|---|---|',

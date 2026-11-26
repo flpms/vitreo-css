@@ -53,16 +53,46 @@ export const glass = () => css`
 `;
 
 /**
- * Moldura de chumbo + filete de brilho. O par escuro/claro garante contorno ≥ 3:1
- * (WCAG 1.4.11) sobre qualquer camada, clara ou escura.
+ * Moldura de chumbo. Só a borda: o brilho fica reservado para a elevação (raise()).
  * @param {'control' | 'surface'} [weight]
  * @param {string} [override] custom property que pode zerar a moldura (ex.: dentro do grid chumbo)
  * @returns {import('lit').CSSResult}
  */
 export const leadBorder = (weight = 'control', override = '--vt-lead-override') => unsafeCSS(`
   border: var(${override}, var(--vt-lead-${weight})) solid var(--vt-lead);
-  box-shadow: 0 0 0 var(${override}-glint, var(--vt-lead-glint)) var(--vt-glint);
   border-radius: var(--vt-radius-none);
+`);
+
+/**
+ * Elevação de controle (camada L2): no hover a peça sobe e ganha um degrau só à
+ * direita e embaixo — filete de brilho colado na peça e sombra por fora. O brilho
+ * aparece sobre fundos escuros, a sombra sobre os claros (validado em contrast-check).
+ * No active a peça afunda e o degrau some.
+ * @param {string} selector elemento interativo dentro do shadow root
+ * @returns {import('lit').CSSResult}
+ */
+export const raise = selector => unsafeCSS(`
+  ${selector} {
+    transition:
+      transform var(--vt-motion-duration-fast) var(--vt-motion-easing-standard),
+      box-shadow var(--vt-motion-duration-fast) var(--vt-motion-easing-standard),
+      background-color var(--vt-motion-duration-fast) var(--vt-motion-easing-standard);
+  }
+  ${selector}:hover:not(:disabled) {
+    transform: translate(calc(var(--vt-elevation-raise) * -1), calc(var(--vt-elevation-raise) * -1));
+    box-shadow:
+      var(--vt-elevation-raise) var(--vt-elevation-raise) 0 0 var(--vt-glint),
+      calc(var(--vt-elevation-raise) * 2) calc(var(--vt-elevation-raise) * 2) 0 0 var(--vt-shade);
+  }
+  ${selector}:active:not(:disabled) {
+    transform: none;
+    box-shadow: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ${selector} {
+      transition: none;
+    }
+  }
 `);
 
 /**

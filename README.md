@@ -1,3 +1,43 @@
+# Vítreo DS v0.0.1 (branch `feat-treomon`)
+
+Design system em [Lit](https://lit.dev) inspirado em **vitrais de igreja**, **Metro UI** e **Mondrian**: moldura de chumbo, vidro translúcido, cores primárias e contraste calculado pela WCAG 2.
+
+```bash
+npm install
+npm run dev        # demo em demo/index.html
+npm run tokens     # src/tokens/*.json → src/tokens/tokens.css
+npm run contrast   # valida 60 pares de contraste (claro + escuro); falha o build se algum reprovar
+npm run build      # tokens + contraste + build da demo em dist/demo
+```
+
+```html
+<link rel="stylesheet" href="vitreo-ds/tokens.css" />
+<link rel="stylesheet" href="vitreo-ds/base.css" />
+<script type="module">import 'vitreo-ds';</script>
+
+<body class="vt-canvas">
+  <vt-grid mode="air">
+    <vt-cell span="13"><vt-card tone="blue"><h3 slot="header">Olá</h3>…</vt-card></vt-cell>
+    <vt-cell span="8"><vt-alert variant="success">Salvo.</vt-alert></vt-cell>
+  </vt-grid>
+</body>
+```
+
+| Nível (design atômico) | Componentes | Camada de contraste |
+|---|---|---|
+| Átomos | `vt-button`, `vt-input` | L2 control |
+| Moléculas | `vt-field`, `vt-alert` | L2 / L1 surface |
+| Organismos | `vt-card` | L1 surface |
+| Templates | `vt-grid` (21 colunas), `vt-cell` | L0 canvas |
+
+- **Tokens** (W3C DTCG): `src/tokens/primitives.json` → `src/tokens/themes/{light,dark}.json`.
+- **Camadas:** L0 canvas → L1 vidro → L2 controle. Cada camada publica `--vt-ctx-bg/fg/muted`; os filhos herdam o par validado. Mixins Lit em `src/styles/mixins.js`: `contrastLayer`, `glass`, `leadBorder`, `focusRing`, `controlFill`, `typeScale`.
+- **Temas:** `prefers-color-scheme` automático, ou `data-theme="light|dark"` em qualquer elemento.
+- **Contraste:** vidros translúcidos são medidos sobre a cor composta, no pior fundo e com reflexo. Veja `docs/contrast-report.md`.
+- **Fonte:** sans-serif, base de 16px, escala 1.25.
+
+---
+
 [I don't speak Portuguese yet](#english) 
 
 [Todavia yo no hablo portugues.](#spanish)

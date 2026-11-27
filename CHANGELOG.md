@@ -4,6 +4,25 @@ Todas as mudanças do Vítreo DS ficam registradas aqui.
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) · Versionamento: [SemVer](https://semver.org/lang/pt-BR/).
 Enquanto o sistema estiver em `0.0.x`, **cada iteração de design gera uma versão patch**.
 
+## [0.0.8] - 2026-11-27
+
+### Adicionado
+- **Aplicação de formulário** em `demo/formulario.html` (encomenda de vitral), montada só com componentes do sistema:
+  - grid na luz atrás do vidro: formulário em 13 colunas, orçamento em 8 (cobalto strong, então o primary é verdete pelas regras);
+  - validação em pt-BR ao enviar, com resumo de erros (`vt-alert` danger) que recebe o foco e tem links para cada campo; depois da primeira tentativa os erros acompanham a digitação;
+  - seletor de vidro com os oito vidros da paleta (rádios nativos, selecionado com moldura cheia e visto, sem depender só da cor);
+  - prévia do vitral nas proporções da peça, pintada com os degraus do vidro escolhido;
+  - orçamento ao vivo (área, prazo e estimativa) e alerta de sucesso com protocolo;
+  - paleta compacta e luz do Mondrian no pé da página.
+- Link para a aplicação na seção de campos da demo.
+
+### Alterado
+- Tema, versão e paleta da demo saem para `demo/shared.js`, usado pelas duas páginas.
+- O Vite compila as duas páginas da demo.
+
+### Corrigido
+- O alerta de exemplo da demo dizia 148 pares de contraste; agora diz 326.
+
 ## [0.0.7] - 2026-11-27
 
 ### Adicionado
@@ -94,7 +113,8 @@ Enquanto o sistema estiver em `0.0.x`, **cada iteração de design gera uma vers
 - Três propostas de gutter para o grid: `air`, `light` e `lead`.
 - Página de demonstração.
 
-[0.0.7]: https://github.com/flpms/vitreo-css/compare/b70d09c...feat-treomon
+[0.0.8]: https://github.com/flpms/vitreo-css/compare/b7fa683...feat-treomon
+[0.0.7]: https://github.com/flpms/vitreo-css/compare/b70d09c...b7fa683
 [0.0.6]: https://github.com/flpms/vitreo-css/compare/ef89c3a...b70d09c
 [0.0.5]: https://github.com/flpms/vitreo-css/compare/8241d16...ef89c3a
 [0.0.4]: https://github.com/flpms/vitreo-css/compare/1f71bcb...8241d16

@@ -4,6 +4,36 @@ Todas as mudanças do Vítreo DS ficam registradas aqui.
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) · Versionamento: [SemVer](https://semver.org/lang/pt-BR/).
 Enquanto o sistema estiver em `0.0.x`, **cada iteração de design gera uma versão patch**.
 
+## [0.0.7] - 2026-11-27
+
+### Adicionado
+- **Luz atrás do vidro como conceito central:**
+  - As primárias de *Composição II em vermelho, azul e amarelo* (Mondrian, 1930) entram na paleta (`color.mondrian.*`) e viram a luz desfocada atrás do grid, alinhada às colunas 13 | 8.
+  - Os vidros filtram essa luz, e o chumbo dos cards faz as linhas pretas.
+- **Regras de aplicação** (`src/tokens/rules.json` + `scripts/lib/rules.mjs`):
+  - inversão de luminosidade por camada;
+  - troca de matiz: o primary vira verdete sobre cobalto e âmbar sobre ametista; o accent vira verdete sobre âmbar e ametista;
+  - danger é sempre rubi.
+  - Cada vidro publica `--vt-ctx-action-*`.
+- **Validador:** checa, para cada ação em cada camada, o texto (4.5:1) e o botão contra a camada (3:1). Total: 326/326 pares.
+- **Convenções de apresentação no `CLAUDE.md`:** paleta sempre presente e grid sempre com a luz.
+
+### Alterado
+- **Botão "tecla de vidro"** (`press()` no lugar de `raise()`):
+  - repouso: espessura de 4px na cor da peça;
+  - hover: sobe 1px;
+  - clique: desce a espessura e a face fica côncava;
+  - o aperto dura 60 ms e a volta 160 ms;
+  - o ghost não tem espessura;
+  - o anel de foco preserva a profundidade.
+- `vt-grid`: `mode="light"` é o padrão.
+- O `field.edge` do tema claro ficou um degrau mais escuro, para manter 3:1 sobre a luz azul.
+- A demo apresenta a luz atrás do vidro, as regras de aplicação e accent/danger em cada vidro.
+
+### Removido
+- O degrau de elevação (`raise()`) e os tokens `glint` e `elevation`.
+- A comparação de modos de grid na demo. `air` e `lead` continuam no componente.
+
 ## [0.0.6] - 2026-11-27
 
 ### Alterado
@@ -64,7 +94,8 @@ Enquanto o sistema estiver em `0.0.x`, **cada iteração de design gera uma vers
 - Três propostas de gutter para o grid: `air`, `light` e `lead`.
 - Página de demonstração.
 
-[0.0.6]: https://github.com/flpms/vitreo-css/compare/ef89c3a...feat-treomon
+[0.0.7]: https://github.com/flpms/vitreo-css/compare/b70d09c...feat-treomon
+[0.0.6]: https://github.com/flpms/vitreo-css/compare/ef89c3a...b70d09c
 [0.0.5]: https://github.com/flpms/vitreo-css/compare/8241d16...ef89c3a
 [0.0.4]: https://github.com/flpms/vitreo-css/compare/1f71bcb...8241d16
 [0.0.3]: https://github.com/flpms/vitreo-css/compare/0fb94f0...1f71bcb

@@ -6,7 +6,7 @@ Design system em [Lit](https://lit.dev) inspirado em **vitrais de catedral**, **
 
 ```bash
 npm install
-npm run dev        # demo em demo/index.html
+npm run dev        # demo em demo/index.html; aplicação de formulário em demo/formulario.html
 npm run tokens     # src/tokens/*.json → src/tokens/tokens.css
 npm run contrast   # valida 326 pares de contraste (claro + escuro); falha o build se algum reprovar
 npm run build      # tokens + contraste + build da demo em dist/demo

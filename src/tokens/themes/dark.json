@@ -17,13 +17,9 @@
     "$value": "{color.lead.700}",
     "$description": "Chumbo: contorno fino em grafite. Decorativo — o contraste exigido fica com field.edge, foco e elevação."
   },
-  "glint": {
-    "$value": "{color.glass.100}",
-    "$description": "Brilho do vidro: só no degrau de elevação (direita e embaixo) dos controles no hover."
-  },
   "shade": {
     "$value": "{color.lead.950}",
-    "$description": "Sombra do degrau de elevação. Com o brilho forma um par claro/escuro visível sobre qualquer camada."
+    "$description": "Base escura da espessura da tecla: a profundidade é a cor do botão misturada com ela."
   },
   "focus": {
     "outer": {
@@ -34,28 +30,28 @@
     }
   },
   "light": {
-    "$description": "Luz atrás do vidro — blocos desfocados atrás do grid (ideia 2).",
-    "cobalt": {
-      "$value": "{color.cobalt.900}",
+    "$description": "Luz atrás do vidro — as primárias do Mondrian desfocadas atrás do grid. Os vidros filtram essa luz.",
+    "red": {
+      "$value": "{color.mondrian.red}",
       "$extensions": {
         "vitreo": {
-          "alpha": 0.9
+          "alpha": 0.24
         }
       }
     },
-    "ruby": {
-      "$value": "{color.ruby.900}",
+    "yellow": {
+      "$value": "{color.mondrian.yellow}",
       "$extensions": {
         "vitreo": {
-          "alpha": 0.9
+          "alpha": 0.24
         }
       }
     },
-    "amber": {
-      "$value": "{color.amber.900}",
+    "blue": {
+      "$value": "{color.mondrian.blue}",
       "$extensions": {
         "vitreo": {
-          "alpha": 0.9
+          "alpha": 0.24
         }
       }
     }
@@ -344,18 +340,7 @@
     }
   },
   "control": {
-    "$description": "Camada L2 — preenchimentos sólidos de botões.",
-    "primary": {
-      "bg": {
-        "$value": "{color.cobalt.400}"
-      },
-      "bg-hover": {
-        "$value": "{color.cobalt.300}"
-      },
-      "fg": {
-        "$value": "{color.lead.950}"
-      }
-    },
+    "$description": "Camada L2 sobre o fundo. primary, accent e danger são gerados por rules.json; secondary é neutro.",
     "secondary": {
       "bg": {
         "$value": "{color.lead.800}"
@@ -365,28 +350,6 @@
       },
       "fg": {
         "$value": "{color.glass.50}"
-      }
-    },
-    "accent": {
-      "bg": {
-        "$value": "{color.amber.300}"
-      },
-      "bg-hover": {
-        "$value": "{color.amber.200}"
-      },
-      "fg": {
-        "$value": "{color.lead.950}"
-      }
-    },
-    "danger": {
-      "bg": {
-        "$value": "{color.ruby.400}"
-      },
-      "bg-hover": {
-        "$value": "{color.ruby.300}"
-      },
-      "fg": {
-        "$value": "{color.lead.950}"
       }
     }
   },

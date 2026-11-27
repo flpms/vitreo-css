@@ -35,6 +35,10 @@ const CONTEXT_DEFAULTS = Object.freeze([
   '--vt-ctx-bg: var(--vt-canvas-bg);',
   '--vt-ctx-fg: var(--vt-canvas-fg);',
   '--vt-ctx-muted: var(--vt-canvas-muted);',
+  '--vt-ctx-accent: var(--vt-canvas-muted);',
+  ...['primary', 'accent', 'danger'].flatMap(action =>
+    ['bg', 'bg-hover', 'fg'].map(part => `--vt-ctx-action-${action}-${part}: var(--vt-control-${action}-${part});`),
+  ),
 ]);
 
 const themeBody = (primitives, theme, scheme, indent) => [

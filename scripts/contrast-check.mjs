@@ -12,8 +12,8 @@
  *
  * Critérios:
  *   1.4.3  texto normal                          ≥ 4.5:1
- *   1.4.11 contorno de campo, foco, elevação,
- *          ícones (accent) e séries de dados      ≥ 3:1
+ *   1.4.11 contorno de campo, foco, ícones (accent),
+ *          séries de dados e botão de ação × camada ≥ 3:1
  *
  * Botões são identificados pelo próprio rótulo (já validado em 4.5:1), então o
  * chumbo deles é estético. Campos de texto não têm rótulo dentro: o contorno
@@ -43,6 +43,7 @@ const themeShape = theme => ({
     groupKeys(theme.surface[tone]).map(emphasis => ({ id: `${tone} ${emphasis}`, path: `surface.${tone}.${emphasis}` })),
   ),
   controls: groupKeys(theme.control),
+  actions: ['primary', 'accent', 'danger'].filter(action => theme.control?.[action]),
   data: groupKeys(theme.data),
 });
 
@@ -140,7 +141,6 @@ const checksForTheme = (theme, colors, shape, ghostHoverAlpha) => {
 
   const rings = [
     ringCheck({ theme, layer: 'L2', label: 'campo · contorno (borda ou fundo) vs camada', a: rgb('field.edge'), b: rgb('field.bg'), candidates: placements }),
-    ringCheck({ theme, layer: 'L2', label: 'hover · degrau de elevação (brilho + sombra) vs camada', a: rgb('glint'), b: rgb('shade'), candidates: placements }),
     ringCheck({ theme, layer: 'L2', label: 'foco · anel bicolor vs camada', a: rgb('focus.outer'), b: rgb('focus.inner'), candidates: placements }),
     {
       theme, layer: 'L2', label: 'foco · externo vs interno', kind: 'contorno', min: NON_TEXT_MIN,
@@ -149,13 +149,33 @@ const checksForTheme = (theme, colors, shape, ghostHoverAlpha) => {
     },
   ];
 
+  // Regras de aplicação (rules.json): em cada camada, o botão de ação precisa de texto
+  // legível e de se destacar do vidro onde está (fill × camada ≥ 3:1).
+  const layers = [
+    { id: 'fundo', prefix: 'control', candidates: backdrops },
+    ...shape.surfaces.map(({ id, path }) => ({ id, prefix: `${path}.action`, candidates: candidatesBySurface[id] })),
+  ];
+  const actions = layers.flatMap(({ id, prefix, candidates }) =>
+    shape.actions.flatMap(action => {
+      const base = `${prefix}.${action}`;
+      const fills = [
+        ...withSheen(colors, rgb(`${base}.bg`)),
+        ...withSheen(colors, rgb(`${base}.bg-hover`)).map(f => ({ ...f, name: `hover/${f.name}` })),
+      ];
+      return [
+        textCheck({ theme, layer: 'ação', label: `${action} em ${id} · texto`, fg: rgb(`${base}.fg`), candidates: fills }),
+        graphicCheck({ theme, layer: 'ação', label: `${action} em ${id} · botão × camada`, fg: rgb(`${base}.bg`), candidates }),
+      ];
+    }),
+  );
+
   // Gráficos ficam sobre o fundo ou sobre o vidro neutro (painéis de dashboard).
   const chartGrounds = [...backdrops.slice(0, 1), ...candidatesBySurface['neutral soft']];
   const data = shape.data.map(index =>
     graphicCheck({ theme, layer: 'dados', label: `série ${index}`, fg: rgb(`data.${index}`), candidates: chartGrounds }),
   );
 
-  return [...canvas, ...surfaces, ...controls, ...ghost, ...field, ...rings, ...data];
+  return [...canvas, ...surfaces, ...controls, ...ghost, ...field, ...rings, ...actions, ...data];
 };
 
 const formatRow = check => {

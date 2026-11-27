@@ -120,13 +120,6 @@
       "$description": "Componentes inativos são isentos de contraste (WCAG 1.4.3), mas seguem legíveis."
     }
   },
-  "elevation": {
-    "$type": "dimension",
-    "$description": "Deslocamento do degrau de elevação (direita e embaixo) dos controles no hover.",
-    "raise": {
-      "$value": "2px"
-    }
-  },
   "radius": {
     "$type": "dimension",
     "none": {
@@ -147,6 +140,14 @@
       },
       "base": {
         "$value": "200ms"
+      },
+      "press": {
+        "$value": "60ms",
+        "$description": "Aperto: rápido."
+      },
+      "release": {
+        "$value": "160ms",
+        "$description": "Volta: mais lenta que o aperto."
       }
     },
     "easing": {
@@ -156,6 +157,14 @@
           0.2,
           0,
           0,
+          1
+        ]
+      },
+      "release": {
+        "$value": [
+          0.2,
+          0.8,
+          0.2,
           1
         ]
       }
@@ -186,6 +195,16 @@
     },
     "offset": {
       "$value": "2px"
+    }
+  },
+  "press": {
+    "$type": "dimension",
+    "$description": "Tecla de vidro: espessura da peça em repouso e quanto ela sobe no hover. No clique ela desce a espessura inteira.",
+    "depth": {
+      "$value": "4px"
+    },
+    "lift": {
+      "$value": "1px"
     }
   }
 }

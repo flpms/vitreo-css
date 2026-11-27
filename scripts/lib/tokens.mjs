@@ -6,6 +6,7 @@
 import { readFile } from 'node:fs/promises';
 import { parseHex } from './color.mjs';
 import { paletteToTokens } from './palette.mjs';
+import { applyRules } from './rules.mjs';
 
 const TOKENS_DIR = new URL('../../src/tokens/', import.meta.url);
 export const THEMES = Object.freeze(['light', 'dark']);
@@ -16,12 +17,15 @@ const readJson = async relative => JSON.parse(await readFile(new URL(relative, T
 
 /**
  * Primitivos = primitives.json + cores geradas de palette.json (OKLCH → sRGB).
+ * Temas = themes/*.json + tokens de ação gerados de rules.json.
  * @returns {Promise<{ primitives: object, themes: Record<string, object> }>}
  */
 export const loadTokens = async () => {
-  const [base, palette] = await Promise.all([readJson('primitives.json'), readJson('palette.json')]);
+  const [base, palette, rules] = await Promise.all(['primitives.json', 'palette.json', 'rules.json'].map(readJson));
   const primitives = { ...base, color: paletteToTokens(palette) };
-  const entries = await Promise.all(THEMES.map(async theme => [theme, await readJson(`themes/${theme}.json`)]));
+  const entries = await Promise.all(
+    THEMES.map(async theme => [theme, applyRules(await readJson(`themes/${theme}.json`), theme, rules)]),
+  );
   return { primitives, themes: Object.fromEntries(entries) };
 };
 

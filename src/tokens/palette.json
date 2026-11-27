@@ -87,5 +87,13 @@
       "chroma": 0.1,
       "$description": "Musgo — o verde-oliva do vidro 'pot-metal'."
     }
+  },
+  "fixed": {
+    "$description": "Cores fixas fora da escala OKLCH. mondrian: as primárias de 'Composição com vermelho, azul e amarelo' (1930) — usadas só como luz atrás do vidro.",
+    "mondrian": {
+      "red": "#D7261E",
+      "yellow": "#F5C518",
+      "blue": "#1F4E99"
+    }
   }
 }

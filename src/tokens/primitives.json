@@ -1,0 +1,210 @@
+{
+  "$description": "Tokens primitivos do Vítreo DS (exceto cores, geradas de palette.json). Nunca usados direto pelos componentes, só via tokens semânticos (themes/*.json).",
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "base": {
+        "$value": [
+          "Segoe UI",
+          "system-ui",
+          "-apple-system",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif"
+        ]
+      }
+    },
+    "size": {
+      "$type": "dimension",
+      "$description": "Escala modular 1.25 (terça maior) sobre base de 16px.",
+      "xs": {
+        "$value": "0.8rem"
+      },
+      "md": {
+        "$value": "1rem"
+      },
+      "lg": {
+        "$value": "1.25rem"
+      },
+      "xl": {
+        "$value": "1.5625rem"
+      },
+      "2xl": {
+        "$value": "1.953rem"
+      },
+      "3xl": {
+        "$value": "2.441rem"
+      },
+      "4xl": {
+        "$value": "3.052rem"
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "light": {
+        "$value": 300
+      },
+      "regular": {
+        "$value": 400
+      },
+      "semibold": {
+        "$value": 600
+      },
+      "bold": {
+        "$value": 800
+      }
+    },
+    "line-height": {
+      "$type": "number",
+      "tight": {
+        "$value": 1.15
+      },
+      "base": {
+        "$value": 1.5
+      }
+    },
+    "tracking": {
+      "$type": "dimension",
+      "label": {
+        "$value": "0.06em"
+      }
+    }
+  },
+  "space": {
+    "$type": "dimension",
+    "$description": "Passo de 4px.",
+    "1": {
+      "$value": "0.25rem"
+    },
+    "2": {
+      "$value": "0.5rem"
+    },
+    "3": {
+      "$value": "0.75rem"
+    },
+    "4": {
+      "$value": "1rem"
+    },
+    "5": {
+      "$value": "1.5rem"
+    },
+    "6": {
+      "$value": "2rem"
+    },
+    "7": {
+      "$value": "3rem"
+    },
+    "8": {
+      "$value": "4rem"
+    }
+  },
+  "lead": {
+    "$type": "dimension",
+    "$description": "Espessura do chumbo — linha fina de grafite que prende cada vidro.",
+    "control": {
+      "$value": "1.5px"
+    },
+    "surface": {
+      "$value": "2px"
+    }
+  },
+  "opacity": {
+    "$type": "number",
+    "ghost-hover": {
+      "$value": 0.12,
+      "$description": "Véu da cor do texto no hover do botão ghost (validado em contrast-check)."
+    },
+    "disabled": {
+      "$value": 0.45,
+      "$description": "Componentes inativos são isentos de contraste (WCAG 1.4.3), mas seguem legíveis."
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "none": {
+      "$value": "0"
+    }
+  },
+  "glass": {
+    "blur": {
+      "$type": "dimension",
+      "$value": "14px"
+    }
+  },
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "fast": {
+        "$value": "120ms"
+      },
+      "base": {
+        "$value": "200ms"
+      },
+      "press": {
+        "$value": "60ms",
+        "$description": "Aperto: rápido."
+      },
+      "release": {
+        "$value": "160ms",
+        "$description": "Volta: mais lenta que o aperto."
+      }
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "standard": {
+        "$value": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      },
+      "release": {
+        "$value": [
+          0.2,
+          0.8,
+          0.2,
+          1
+        ]
+      }
+    }
+  },
+  "grid": {
+    "columns": {
+      "$type": "number",
+      "$value": 21
+    },
+    "gutter": {
+      "$type": "dimension",
+      "metro": {
+        "$value": "1.5rem"
+      },
+      "metro-sm": {
+        "$value": "1rem"
+      },
+      "light": {
+        "$value": "0.75rem"
+      }
+    }
+  },
+  "focus": {
+    "$type": "dimension",
+    "width": {
+      "$value": "2px"
+    },
+    "offset": {
+      "$value": "2px"
+    }
+  },
+  "press": {
+    "$type": "dimension",
+    "$description": "Tecla de vidro: espessura da peça em repouso e quanto ela sobe no hover. No clique ela desce a espessura inteira.",
+    "depth": {
+      "$value": "4px"
+    },
+    "lift": {
+      "$value": "1px"
+    }
+  }
+}

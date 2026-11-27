@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vítreo DS</title>
+    <meta name="description" content="Vítreo DS — design system em Lit inspirado em vitrais, Metro UI e Mondrian." />
+    <link rel="stylesheet" href="../src/tokens/tokens.css" />
+    <link rel="stylesheet" href="../src/styles/base.css" />
+    <link rel="stylesheet" href="./demo.css" />
+    <script type="module" src="./demo.js"></script>
+  </head>
+  <body class="vt-canvas">
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="masthead">
+      <div class="wrap masthead__inner">
+        <div>
+          <p class="vt-label vt-muted">Design system · <span data-version></span></p>
+          <h1 class="brand">vítreo</h1>
+          <p class="lede">Vidro de catedral, Metro UI e Mondrian. Chumbo fino, vidro translúcido e cor de verdade, com contraste calculado pela WCAG 2.</p>
+        </div>
+        <fieldset class="theme-switch">
+          <legend class="vt-label vt-muted">Tema</legend>
+          <label><input type="radio" name="theme" value="auto" checked /> <span>auto</span></label>
+          <label><input type="radio" name="theme" value="light" /> <span>claro</span></label>
+          <label><input type="radio" name="theme" value="dark" /> <span>escuro</span></label>
+        </fieldset>
+      </div>
+      <div class="came" aria-hidden="true"></div>
+    </header>
+
+    <main id="conteudo" class="wrap">
+      <!-- ───────────── Paleta ───────────── -->
+      <section aria-labelledby="t-paleta">
+        <h2 id="t-paleta">a obra expandida</h2>
+        <p>Em vez dos três primários do Mondrian, oito vidros. Vêm dos vitrais medievais (o azul de Chartres, o rubi de cobre, o âmbar de prata e a pátina do chumbo) e do Mondrian tardio. Em <em>Broadway Boogie Woogie</em> as linhas deixam de ser pretas e viram cor. Cada família é gerada em OKLCH com a mesma luminosidade por degrau, então um cobalto 600 e um rubi 600 têm o mesmo peso e o mesmo contraste.</p>
+        <div class="palette" data-palette></div>
+        <div class="light-swatches">
+          <span class="vt-label vt-muted">a luz · Mondrian, 1930</span>
+          <div class="light-swatches__row">
+            <span><i style="background: var(--vt-color-mondrian-red)"></i>vermelho</span>
+            <span><i style="background: var(--vt-color-mondrian-yellow)"></i>amarelo</span>
+            <span><i style="background: var(--vt-color-mondrian-blue)"></i>azul</span>
+          </div>
+          <p class="vt-muted">Fora da escala OKLCH e usadas só como luz atrás do vidro, nunca como cor de componente.</p>
+        </div>
+      </section>
+
+      <!-- ───────────── Luz atrás do vidro ───────────── -->
+      <section aria-labelledby="t-luz">
+        <h2 id="t-luz">luz atrás do vidro</h2>
+        <p>É o conceito central do Vítreo. O Mondrian não pinta a interface: ele é a <strong>luz</strong>. As primárias puras de <em>Composição II em vermelho, azul e amarelo</em> (1930) ficam atrás do grid, desfocadas como luz de janela. Os vidros da paleta filtram essa luz. O chumbo fino dos cards faz o papel das linhas pretas do quadro.</p>
+        <div class="concept">
+          <figure class="concept__source">
+            <svg viewBox="0 0 210 120" role="img" aria-label="Composição em grade com um grande retângulo vermelho no alto à direita, um azul embaixo à esquerda e um pequeno amarelo no canto inferior direito, separados por linhas pretas">
+              <rect width="210" height="120" style="fill: var(--vt-color-glass-50)" />
+              <rect x="80" y="0" width="130" height="77" style="fill: var(--vt-color-mondrian-red)" />
+              <rect x="0" y="77" width="80" height="43" style="fill: var(--vt-color-mondrian-blue)" />
+              <rect x="180" y="94" width="30" height="26" style="fill: var(--vt-color-mondrian-yellow)" />
+              <g style="stroke: var(--vt-color-lead-950)" stroke-width="4">
+                <path d="M80 0v120M0 77h210M180 77v43M180 94h30M0 35h80" />
+              </g>
+            </svg>
+            <figcaption class="vt-muted"><strong>a luz.</strong> A composição de 1930, alinhada às 21 colunas: vermelho em 13, azul em 8 e amarelo em 3.</figcaption>
+          </figure>
+          <figure class="concept__result">
+            <vt-grid class="composition"></vt-grid>
+            <figcaption class="vt-muted"><strong>o vitral.</strong> A mesma luz atrás do <code>vt-grid</code>, desfocada e filtrada pelos vidros.</figcaption>
+          </figure>
+        </div>
+        <p>O grid tem 21 colunas. 21 = 3 × 7, e também é número de Fibonacci: divide em terços (7 + 7 + 7), em sétimos e nas proporções do quadro (13 + 8, 8 + 5 + 8).</p>
+        <div class="ruler" aria-hidden="true"></div>
+        <p class="vt-muted">A luz também entra no cálculo de contraste: todo vidro e todo texto são medidos sobre ela. Os modos <code>air</code> (sem luz) e <code>lead</code> (gutter de chumbo) continuam no componente, mas <code>light</code> é o padrão.</p>
+      </section>
+
+      <!-- ───────────── Dashboard ───────────── -->
+      <section aria-labelledby="t-dash">
+        <h2 id="t-dash">em um dashboard</h2>
+        <p class="vt-muted">Montado só com os componentes do sistema. Os números são de exemplo.</p>
+
+        <div class="dash">
+          <div class="dash__bar">
+            <vt-input class="dash__search" label="Buscar relatório" type="search" placeholder="Buscar relatório…"></vt-input>
+            <vt-button variant="secondary">exportar</vt-button>
+            <vt-button variant="primary">novo relatório</vt-button>
+          </div>
+
+          <vt-grid>
+            <vt-cell span="7" span-md="21">
+              <vt-card>
+                <span slot="header" class="vt-label vt-muted">visitantes · novembro</span>
+                <p class="kpi">12.480</p>
+                <p class="kpi__delta"><span class="trend trend--up" aria-hidden="true">▲</span> 8,2% sobre outubro</p>
+              </vt-card>
+            </vt-cell>
+            <vt-cell span="7" span-md="10" span-sm="21">
+              <vt-card>
+                <span slot="header" class="vt-label vt-muted">conversão</span>
+                <p class="kpi">3,4%</p>
+                <p class="kpi__delta"><span class="trend trend--flat" aria-hidden="true">■</span> estável</p>
+              </vt-card>
+            </vt-cell>
+            <vt-cell span="7" span-md="11" span-sm="21">
+              <vt-card tone="ruby">
+                <span slot="header" class="vt-label">chamados abertos</span>
+                <p class="kpi">27</p>
+                <p class="kpi__delta"><span class="trend" aria-hidden="true">▲</span> 9 acima da meta</p>
+              </vt-card>
+            </vt-cell>
+
+            <vt-cell span="13" span-md="21">
+              <vt-card>
+                <h3 slot="header">receita por mês</h3>
+                <div class="chart" data-chart role="img" aria-label="Gráfico de barras: receita mensal de junho a novembro, assinaturas e avulsos. Assinaturas crescem de 42 para 61 mil; avulsos oscilam entre 18 e 26 mil."></div>
+                <ul class="legend" data-chart-legend></ul>
+              </vt-card>
+            </vt-cell>
+            <vt-cell span="8" span-md="21">
+              <vt-card>
+                <h3 slot="header">origem do tráfego</h3>
+                <div class="share" data-share role="img" aria-label="Distribuição do tráfego por origem"></div>
+                <ul class="share__list" data-share-legend></ul>
+              </vt-card>
+            </vt-cell>
+
+            <vt-cell span="21">
+              <vt-alert variant="warning" heading="Fila de suporte acima da meta" dismissible>27 chamados abertos, e a meta é 18. O tempo médio de resposta subiu para 6 h.</vt-alert>
+            </vt-cell>
+          </vt-grid>
+        </div>
+      </section>
+
+      <!-- ───────────── Camadas ───────────── -->
+      <section aria-labelledby="t-camadas">
+        <h2 id="t-camadas">camadas de contraste</h2>
+        <p>Cada nível visual é uma camada com o próprio par de cores validado. Os filhos leem o contexto da camada onde estão (<code>--vt-ctx-*</code>), então o mesmo botão funciona sobre o fundo ou sobre qualquer vidro.</p>
+
+        <div class="layers">
+          <span class="vt-label vt-muted">L0 · canvas</span>
+          <vt-card tone="cobalt">
+            <span class="vt-label" slot="header">L1 · vidro cobalto soft</span>
+            <p>Texto medido sobre a cor composta do vidro, no pior fundo possível e com reflexo.</p>
+            <div class="layers__l2">
+              <span class="vt-label">L2 · controles</span>
+              <vt-button variant="primary">sobre o vidro</vt-button>
+              <vt-button variant="ghost">ghost herda a camada</vt-button>
+            </div>
+          </vt-card>
+        </div>
+        <p class="vt-muted">Relatório completo em <code>docs/contrast-report.md</code>: 148 de 148 pares aprovados nos temas claro e escuro.</p>
+      </section>
+
+      <!-- ───────────── Botões ───────────── -->
+      <section aria-labelledby="t-botoes">
+        <h2 id="t-botoes">botões</h2>
+        <p>Átomo da camada L2: uma tecla de vidro. A peça tem uma espessura embaixo, feita da própria cor escurecida. No hover ela sobe 1px; ao clicar, desce a espessura inteira e a face fica côncava. O aperto dura 60 ms e a volta 160 ms. O ghost não tem espessura.</p>
+
+        <div class="row">
+          <vt-button variant="primary">primary</vt-button>
+          <vt-button variant="secondary">secondary</vt-button>
+          <vt-button variant="accent">accent</vt-button>
+          <vt-button variant="danger">danger</vt-button>
+          <vt-button variant="ghost">ghost</vt-button>
+          <vt-button variant="primary" disabled>desabilitado</vt-button>
+        </div>
+        <div class="row">
+          <vt-button size="sm" variant="primary">pequeno</vt-button>
+          <vt-button size="md" variant="primary">médio</vt-button>
+          <vt-button size="lg" variant="primary">
+            grande
+            <svg slot="end" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </vt-button>
+        </div>
+
+        <h3 class="subhead">regras de aplicação</h3>
+        <ol class="rules">
+          <li><strong>Inversão de luminosidade.</strong> Sobre vidro claro, o preenchimento é profundo e o texto é claro. Sobre vidro escuro, o preenchimento é claro e o texto é grafite. O botão sempre se destaca do vidro com pelo menos 3:1.</li>
+          <li><strong>Troca de matiz.</strong> A ação nunca usa a cor do vidro onde está. O <code>primary</code> vira verdete sobre cobalto e âmbar sobre ametista. O <code>accent</code> vira verdete sobre âmbar e ametista.</li>
+          <li><strong><code>danger</code> é sempre rubi.</strong> Só a luminosidade se inverte.</li>
+          <li><strong><code>secondary</code> e <code>ghost</code> são neutros.</strong></li>
+          <li><strong>Um <code>primary</code> por vidro.</strong> As outras ações são secondary ou ghost.</li>
+        </ol>
+        <p class="vt-muted">As regras ficam em <code>src/tokens/rules.json</code>. Cada vidro publica as próprias cores de ação, e o validador confere todas.</p>
+
+        <h3 class="subhead">sobre cada vidro · soft e strong</h3>
+        <div class="tones" data-tones></div>
+      </section>
+
+      <!-- ───────────── Campos ───────────── -->
+      <section aria-labelledby="t-campos">
+        <h2 id="t-campos">campos</h2>
+        <p><code>vt-input</code> é o átomo: não tem rótulo visível e exige <code>label</code>. <code>vt-field</code> é a molécula, com rótulo, dica e erro. Os dois funcionam dentro de um <code>&lt;form&gt;</code> nativo.</p>
+
+        <vt-grid>
+          <vt-cell span="13" span-md="21">
+            <vt-card>
+              <h3 slot="header">cadastro</h3>
+              <form class="form" id="demo-form">
+                <vt-field label="Nome" name="nome" required autocomplete="name"></vt-field>
+                <vt-field label="E-mail" name="email" type="email" hint="Usamos só para avisos da conta." autocomplete="email"></vt-field>
+                <vt-field label="Senha" name="senha" type="password" error="A senha precisa de pelo menos 8 caracteres." value="1234"></vt-field>
+                <vt-field label="Empresa" name="empresa" disabled value="Ateliê de vitrais"></vt-field>
+                <div class="row">
+                  <vt-button type="submit" variant="primary">enviar</vt-button>
+                  <vt-button type="reset" variant="ghost">limpar</vt-button>
+                </div>
+                <output class="form__output vt-muted" for="demo-form" aria-live="polite"></output>
+              </form>
+            </vt-card>
+          </vt-cell>
+          <vt-cell span="8" span-md="21">
+            <vt-card tone="cobalt" emphasis="strong">
+              <h3 slot="header">sobre vidro cobalto strong</h3>
+              <p>Rótulo, dica e erro usam o texto da camada. O campo tem fundo próprio.</p>
+              <div class="form">
+                <vt-input label="Buscar no acervo" type="search" placeholder="Buscar no acervo…"></vt-input>
+                <vt-field label="Cidade" hint="Ex.: Chartres"></vt-field>
+                <vt-field label="CEP" error="CEP não encontrado." value="00000-000"></vt-field>
+              </div>
+            </vt-card>
+          </vt-cell>
+        </vt-grid>
+        <p class="subhead">Aplicação completa, com validação, resumo de erros e orçamento ao vivo: <a href="./formulario.html">encomenda de vitral</a>.</p>
+      </section>
+
+      <!-- ───────────── Alertas ───────────── -->
+      <section aria-labelledby="t-alertas">
+        <h2 id="t-alertas">alertas</h2>
+        <p>Molécula da camada L1. Vidro tingido, moldura fina e ícone na cor do tom. Cor, ícone e texto aparecem sempre juntos. <code>warning</code> e <code>danger</code> usam <code>role="alert"</code>.</p>
+        <div class="stack">
+          <vt-alert variant="info" heading="Nova versão" dismissible>Os tokens agora seguem o formato W3C DTCG, com a paleta em OKLCH.</vt-alert>
+          <vt-alert variant="success" heading="Contraste aprovado" dismissible>326 de 326 pares passaram na WCAG 2 nos dois temas.</vt-alert>
+          <vt-alert variant="warning" heading="Atenção" dismissible>Vidros translúcidos só são validados sobre as camadas conhecidas do sistema.</vt-alert>
+          <vt-alert variant="danger" heading="Erro ao salvar" dismissible>Não foi possível salvar o relatório. Verifique a conexão e tente de novo.</vt-alert>
+          <vt-alert variant="danger" emphasis="strong" heading="Strong">Para o que não pode passar despercebido.</vt-alert>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="wrap colophon vt-muted">
+      <p>Vítreo DS <span data-version></span> · Lit 3 · tokens W3C DTCG · paleta OKLCH · grid de 21 colunas · contraste WCAG 2.x</p>
+    </footer>
+
+    <template id="composition">
+      <vt-cell span="13" span-sm="21">
+        <vt-card tone="cobalt">
+          <h4 slot="header">vitral principal</h4>
+          <p>Span 13: a parte maior da divisão áurea do grid.</p>
+          <vt-button slot="footer" variant="primary" size="sm">ação</vt-button>
+          <vt-button slot="footer" variant="ghost" size="sm">mais</vt-button>
+        </vt-card>
+      </vt-cell>
+      <vt-cell span="8" span-sm="21">
+        <vt-card tone="amber">
+          <h4 slot="header">detalhe</h4>
+          <p>Span 8.</p>
+        </vt-card>
+      </vt-cell>
+      <vt-cell span="8" span-sm="21">
+        <vt-card>
+          <h4 slot="header">neutro</h4>
+          <p>Span 8, vidro claro.</p>
+        </vt-card>
+      </vt-cell>
+      <vt-cell span="5" span-sm="10">
+        <vt-card tone="ruby" emphasis="strong">
+          <h4 slot="header">5</h4>
+          <p>Span 5.</p>
+        </vt-card>
+      </vt-cell>
+      <vt-cell span="8" span-sm="11">
+        <vt-card tone="verdigris">
+          <h4 slot="header">verdete</h4>
+          <p>Span 8.</p>
+        </vt-card>
+      </vt-cell>
+    </template>
+  </body>
+</html>

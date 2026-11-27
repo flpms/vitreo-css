@@ -1,0 +1,40 @@
+{
+  "name": "vitreo-ds",
+  "version": "0.0.8",
+  "description": "Vítreo DS — design system em Lit inspirado em vitrais, Metro UI e Mondrian.",
+  "type": "module",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./tokens.css": "./src/tokens/tokens.css",
+    "./base.css": "./src/styles/base.css"
+  },
+  "files": [
+    "src"
+  ],
+  "sideEffects": [
+    "./src/index.js",
+    "./src/atoms/**/*.js",
+    "./src/molecules/**/*.js",
+    "./src/organisms/**/*.js",
+    "./src/templates/**/*.js",
+    "./demo/**",
+    "*.css"
+  ],
+  "scripts": {
+    "tokens": "node scripts/build-tokens.mjs",
+    "contrast": "node scripts/contrast-check.mjs",
+    "dev": "npm run tokens && vite",
+    "build": "npm run tokens && npm run contrast && vite build",
+    "preview": "vite preview",
+    "test": "npm run contrast"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "lit": "^3.3.3"
+  },
+  "devDependencies": {
+    "vite": "^7.3.8"
+  }
+}

@@ -1,3 +1,49 @@
+# Vítreo DS
+
+Versão atual em `package.json`; histórico de cada iteração em [`CHANGELOG.md`](CHANGELOG.md).
+
+Design system em [Lit](https://lit.dev) inspirado em **vitrais de catedral**, **Metro UI** e **Mondrian**: chumbo fino, vidro translúcido, uma paleta de oito vidros em OKLCH e contraste calculado pela WCAG 2.
+
+```bash
+npm install
+npm run dev        # demo em demo/index.html; aplicação de formulário em demo/formulario.html
+npm run tokens     # src/tokens/*.json → src/tokens/tokens.css
+npm run contrast   # valida 326 pares de contraste (claro + escuro); falha o build se algum reprovar
+npm run build      # tokens + contraste + build da demo em dist/demo
+```
+
+```html
+<link rel="stylesheet" href="vitreo-ds/tokens.css" />
+<link rel="stylesheet" href="vitreo-ds/base.css" />
+<script type="module">import 'vitreo-ds';</script>
+
+<body class="vt-canvas">
+  <vt-grid>
+    <vt-cell span="13"><vt-card tone="cobalt"><h3 slot="header">Olá</h3>…</vt-card></vt-cell>
+    <vt-cell span="8"><vt-alert variant="success">Salvo.</vt-alert></vt-cell>
+  </vt-grid>
+</body>
+```
+
+| Nível (design atômico) | Componentes | Camada de contraste |
+|---|---|---|
+| Átomos | `vt-button`, `vt-input` | L2 control |
+| Moléculas | `vt-field`, `vt-alert` | L2 / L1 surface |
+| Organismos | `vt-card` | L1 surface |
+| Templates | `vt-grid` (21 colunas), `vt-cell` | L0 canvas |
+
+- **Paleta** (`src/tokens/palette.json`): oito vidros em OKLCH, todos com a mesma escala de luminosidade (11 degraus): vidro claro, chumbo, cobalto (o azul de Chartres), rubi, âmbar, verdete, ametista e musgo. Fontes: os vitrais medievais e o Mondrian tardio (*Broadway Boogie Woogie*, em que as linhas viram cor).
+- **Tokens** (W3C DTCG): `palette.json` + `primitives.json` → `themes/{light,dark}.json`. Vidros `soft` (padrão, tingidos) e `strong` (destaque) para cada tom; paleta categórica `--vt-data-1…6` para gráficos.
+- **Luz atrás do vidro** (`<vt-grid>`, modo padrão `light`): as primárias do Mondrian (*Composição II em vermelho, azul e amarelo*, 1930) ficam desfocadas atrás do grid; os vidros filtram a luz e o chumbo dos cards faz as linhas pretas.
+- **Regras de aplicação** (`src/tokens/rules.json`): inversão de luminosidade por camada, troca de matiz (primary verdete sobre cobalto e âmbar sobre ametista; accent verdete sobre âmbar e ametista), danger sempre rubi. Cada vidro publica `--vt-ctx-action-*`.
+- **Tecla de vidro** (`press()`): espessura na cor da peça; no clique a tecla desce e a face fica côncava.
+- **Camadas:** L0 canvas → L1 vidro → L2 controle. Cada camada publica `--vt-ctx-bg/fg/muted`; os filhos herdam o par validado. Mixins Lit em `src/styles/mixins.js`: `contrastLayer`, `glass`, `leadBorder`, `press`, `focusRing`, `controlFill`, `typeScale`.
+- **Temas:** `prefers-color-scheme` automático, ou `data-theme="light|dark"` em qualquer elemento.
+- **Contraste:** vidros translúcidos são medidos sobre a cor composta, no pior fundo e com reflexo. Também são validados ícones (`accent`), séries de dados, contorno de campos, foco e degrau de hover. Veja `docs/contrast-report.md`.
+- **Fonte:** sans-serif, base de 16px, escala 1.25.
+
+---
+
 [I don't speak Portuguese yet](#english) 
 
 [Todavia yo no hablo portugues.](#spanish)

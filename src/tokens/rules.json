@@ -1,0 +1,21 @@
+{
+  "$description": "Regras de aplicação dos botões preenchidos por camada. scripts/lib/rules.mjs gera, para o fundo (control.*) e para cada vidro (surface.<tom>.<ênfase>.action.*), os tokens bg / bg-hover / fg de cada ação. O validador cobre todos.",
+  "actions": {
+    "$description": "Regra 2 — troca de matiz: a ação nunca usa a família do vidro onde está. 'on' lista as exceções por vidro.",
+    "primary": { "default": "cobalt", "on": { "cobalt": "verdigris", "amethyst": "amber" } },
+    "accent": { "default": "amber", "on": { "amber": "verdigris", "amethyst": "verdigris" } },
+    "danger": { "default": "ruby", "on": {}, "$description": "Regra 3 — danger é semântico: nunca troca de matiz, só de luminosidade." }
+  },
+  "fill": {
+    "$description": "Regra 1 — inversão de luminosidade: sobre camada clara, preenchimento profundo com texto claro; sobre camada escura, preenchimento claro com texto grafite.",
+    "on-light": { "bg": "700", "bg-hover": "800", "fg": "white" },
+    "on-dark-light-theme": { "bg": "200", "bg-hover": "100", "fg": "lead.950" },
+    "on-dark": { "bg": "300", "bg-hover": "200", "fg": "lead.950" },
+    "on-light-dark-theme": { "bg": "800", "bg-hover": "900", "fg": "white" }
+  },
+  "layers": {
+    "$description": "Luminosidade de cada camada por tema → qual linha de 'fill' usar.",
+    "light": { "canvas": "on-light", "soft": "on-light", "strong": "on-dark-light-theme" },
+    "dark": { "canvas": "on-dark", "soft": "on-dark", "strong": "on-light-dark-theme" }
+  }
+}

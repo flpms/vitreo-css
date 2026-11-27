@@ -1,0 +1,99 @@
+{
+  "$description": "Paleta do Vítreo em OKLCH. Cada família é um vidro (matiz + croma máximo); cada degrau fixa a luminosidade perceptual e uma fração do croma. Mesma luminosidade em todas as famílias = mesmos contrastes e harmonia entre elas. scripts/lib/palette.mjs converte para sRGB (com mapeamento de gamut) e expõe como {color.<família>.<degrau>}.",
+  "steps": {
+    "50": {
+      "l": 0.975,
+      "chroma": 0.1
+    },
+    "100": {
+      "l": 0.94,
+      "chroma": 0.22
+    },
+    "200": {
+      "l": 0.885,
+      "chroma": 0.42
+    },
+    "300": {
+      "l": 0.8,
+      "chroma": 0.66
+    },
+    "400": {
+      "l": 0.71,
+      "chroma": 0.88
+    },
+    "500": {
+      "l": 0.62,
+      "chroma": 1
+    },
+    "600": {
+      "l": 0.535,
+      "chroma": 1
+    },
+    "700": {
+      "l": 0.455,
+      "chroma": 0.92
+    },
+    "800": {
+      "l": 0.375,
+      "chroma": 0.8
+    },
+    "900": {
+      "l": 0.29,
+      "chroma": 0.62
+    },
+    "950": {
+      "l": 0.215,
+      "chroma": 0.48
+    }
+  },
+  "families": {
+    "glass": {
+      "hue": 170,
+      "chroma": 0.016,
+      "$description": "Vidro claro antigo: neutro com o leve verde-azulado do vidro soprado."
+    },
+    "lead": {
+      "hue": 255,
+      "chroma": 0.018,
+      "$description": "Chumbo: grafite azulado, nunca preto puro."
+    },
+    "cobalt": {
+      "hue": 262,
+      "chroma": 0.15,
+      "$description": "Azul de Chartres — o azul de cobalto dos vitrais do séc. XII."
+    },
+    "ruby": {
+      "hue": 18,
+      "chroma": 0.16,
+      "$description": "Rubi — vidro tingido com cobre, vermelho levemente frio."
+    },
+    "amber": {
+      "hue": 80,
+      "chroma": 0.155,
+      "$description": "Âmbar — o amarelo de prata dos vitrais, mais mel que limão."
+    },
+    "verdigris": {
+      "hue": 172,
+      "chroma": 0.1,
+      "$description": "Verdete — a pátina verde-água do chumbo e do cobre envelhecidos."
+    },
+    "amethyst": {
+      "hue": 305,
+      "chroma": 0.12,
+      "$description": "Ametista — o violeta (murrey) das rosáceas góticas."
+    },
+    "moss": {
+      "hue": 125,
+      "chroma": 0.1,
+      "$description": "Musgo — o verde-oliva do vidro 'pot-metal'."
+    }
+  },
+  "fixed": {
+    "$description": "Cores fixas fora da escala OKLCH. mondrian: as primárias de 'Composição com vermelho, azul e amarelo' (1930) — usadas só como luz atrás do vidro.",
+    "mondrian": {
+      "red": "#D7261E",
+      "yellow": "#F5C518",
+      "blue": "#1F4E99"
+    }
+  }
+}

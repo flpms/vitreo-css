@@ -7,7 +7,7 @@
  *   L2 control — botões e campos → controlFill(), fieldControl()
  *
  * Toda camada publica o seu contexto em --vt-ctx-bg / --vt-ctx-fg / --vt-ctx-muted /
- * --vt-ctx-accent. Custom properties atravessam shadow DOM e slots, então um botão
+ * --vt-ctx-accent e as cores de ação --vt-ctx-action-<primary|accent|danger>-<bg|bg-hover|fg>. Custom properties atravessam shadow DOM e slots, então um botão
  * "ghost" dentro de um card cobalto lê automaticamente o texto validado para aquele vidro.
  * Os pares de cor usados aqui são exatamente os validados por scripts/contrast-check.mjs.
  */
@@ -28,7 +28,10 @@ export const CONTROL_VARIANTS = Object.freeze(['primary', 'secondary', 'accent',
 
 const identity = list => Object.freeze(Object.fromEntries(list.map(item => [item, item])));
 
-const CONTEXT_ROLES = Object.freeze(['bg', 'fg', 'muted', 'accent']);
+const CONTEXT_ROLES = Object.freeze([
+  'bg', 'fg', 'muted', 'accent',
+  ...['primary', 'accent', 'danger'].flatMap(action => ['bg', 'bg-hover', 'fg'].map(part => `action-${action}-${part}`)),
+]);
 
 const surfaceContext = (tone, emphasis) =>
   CONTEXT_ROLES.map(role => `\n  --vt-ctx-${role}: var(--vt-surface-${tone}-${emphasis}-${role});`).join('');
@@ -65,7 +68,7 @@ export const glass = () => css`
 `;
 
 /**
- * Moldura de chumbo. Só a borda: o brilho fica reservado para a elevação (raise()).
+ * Moldura de chumbo.
  * @param {'control' | 'surface'} [weight]
  * @param {string} [override] custom property que pode zerar a moldura (ex.: dentro do grid chumbo)
  * @returns {import('lit').CSSResult}
@@ -76,38 +79,38 @@ export const leadBorder = (weight = 'control', override = '--vt-lead-override') 
 `);
 
 /**
- * Elevação de controle (camada L2). O degrau — filete de brilho colado na peça e
- * sombra por fora — troca de lado conforme o estado, como luz batendo no vidro:
- *   repouso → degrau à esquerda e em cima (peça deslocada para baixo e à direita)
- *   hover   → degrau à direita e embaixo (peça desliza para cima e à esquerda)
- *   active  → sem degrau, peça rente
- * O brilho aparece sobre fundos escuros, a sombra sobre os claros (validado em
- * contrast-check). Desabilitado fica rente: não há o que pressionar.
- * @param {string} selector elemento interativo dentro do shadow root
+ * Tecla de vidro (camada L2). A peça tem espessura embaixo, feita da própria cor
+ * escurecida com --vt-shade — como a borda de um vidro grosso. Move-se só no eixo Z:
+ *   repouso → espessura de --vt-press-depth
+ *   hover   → sobe --vt-press-lift (a espessura cresce junto)
+ *   active  → desce a espessura inteira; a face fica côncava (sombra interna)
+ * O aperto dura --vt-motion-duration-press; a volta, mais lenta, --vt-motion-duration-release.
+ * Desabilitado fica rente. Publica --_edge para outros estados (ex.: foco) reaproveitarem.
+ * @param {string} selector elemento interativo dentro do shadow root (precisa de --_fill)
  * @returns {import('lit').CSSResult}
  */
-export const raise = selector => unsafeCSS(`
+export const press = selector => unsafeCSS(`
   ${selector} {
-    --_r: var(--vt-elevation-raise);
-    transform: translate(var(--_r), var(--_r));
-    box-shadow:
-      calc(var(--_r) * -1) calc(var(--_r) * -1) 0 0 var(--vt-glint),
-      calc(var(--_r) * -2) calc(var(--_r) * -2) 0 0 var(--vt-shade);
+    --_edge: color-mix(in oklab, var(--_fill) 62%, var(--vt-shade));
+    --_depth-shadow: 0 var(--vt-press-depth) 0 0 var(--_edge);
+    box-shadow: var(--_depth-shadow);
     transition:
-      transform var(--vt-motion-duration-fast) var(--vt-motion-easing-standard),
-      box-shadow var(--vt-motion-duration-fast) var(--vt-motion-easing-standard),
-      background-color var(--vt-motion-duration-fast) var(--vt-motion-easing-standard);
+      transform var(--vt-motion-duration-release) var(--vt-motion-easing-release),
+      box-shadow var(--vt-motion-duration-release) var(--vt-motion-easing-release),
+      background-color var(--vt-motion-duration-release) var(--vt-motion-easing-release);
   }
   ${selector}:hover {
-    transform: translate(calc(var(--_r) * -1), calc(var(--_r) * -1));
-    box-shadow:
-      var(--_r) var(--_r) 0 0 var(--vt-glint),
-      calc(var(--_r) * 2) calc(var(--_r) * 2) 0 0 var(--vt-shade);
+    --_depth-shadow: 0 calc(var(--vt-press-depth) + var(--vt-press-lift)) 0 0 var(--_edge);
+    transform: translateY(calc(var(--vt-press-lift) * -1));
   }
-  ${selector}:active,
+  ${selector}:active {
+    --_depth-shadow: inset 0 2px 3px rgb(0 0 0 / 0.28);
+    transform: translateY(var(--vt-press-depth));
+    transition-duration: var(--vt-motion-duration-press);
+  }
   ${selector}:disabled {
+    --_depth-shadow: none;
     transform: none;
-    box-shadow: none;
   }
   @media (prefers-reduced-motion: reduce) {
     ${selector} {
@@ -118,6 +121,7 @@ export const raise = selector => unsafeCSS(`
 
 /**
  * Anel de foco bicolor: faixa interna + contorno externo, visível em qualquer fundo.
+ * Preserva a profundidade da tecla quando o elemento usa press() (--_depth-shadow).
  * @param {string} selector elemento que recebe foco dentro do shadow root
  * @returns {import('lit').CSSResult}
  */
@@ -125,34 +129,44 @@ export const focusRing = selector => unsafeCSS(`
   ${selector}:focus-visible {
     outline: var(--vt-focus-width) solid var(--vt-focus-outer);
     outline-offset: var(--vt-focus-offset);
-    box-shadow: 0 0 0 var(--vt-focus-offset) var(--vt-focus-inner);
+    box-shadow: 0 0 0 var(--vt-focus-offset) var(--vt-focus-inner), var(--_depth-shadow, 0 0 transparent);
   }
 `);
 
+/** Ações preenchidas: as cores vêm do contexto da camada (rules.json), não de um valor global. */
+const ACTIONS = Object.freeze(['primary', 'accent', 'danger']);
+
 /**
- * Cores sólidas da camada L2 por variante, mais a variante ghost que herda o contexto.
+ * Cores da camada L2 por variante. primary/accent/danger leem --vt-ctx-action-*, que
+ * cada camada publica segundo as regras de aplicação (luminosidade invertida e troca
+ * de matiz). secondary é neutro; ghost herda o texto da camada.
  * Publica --_fill, --_fill-hover e --_ink para o template do componente usar.
  * @param {string} [attribute]
  * @returns {import('lit').CSSResult}
  */
 export const controlFill = (attribute = 'variant') => {
-  const solid = CONTROL_VARIANTS.map(variant => `
-    :host([${attribute}="${variant}"]) {
-      --_fill: var(--vt-control-${variant}-bg);
-      --_fill-hover: var(--vt-control-${variant}-bg-hover);
-      --_ink: var(--vt-control-${variant}-fg);
+  const actions = ACTIONS.map(action => `
+    :host([${attribute}="${action}"]) {
+      --_fill: var(--vt-ctx-action-${action}-bg);
+      --_fill-hover: var(--vt-ctx-action-${action}-bg-hover);
+      --_ink: var(--vt-ctx-action-${action}-fg);
     }`).join('');
-  const ghost = `
+  const neutral = `
+    :host([${attribute}="secondary"]) {
+      --_fill: var(--vt-control-secondary-bg);
+      --_fill-hover: var(--vt-control-secondary-bg-hover);
+      --_ink: var(--vt-control-secondary-fg);
+    }
     :host([${attribute}="ghost"]) {
       --_fill: transparent;
       --_fill-hover: color-mix(in srgb, var(--vt-ctx-fg) calc(var(--vt-opacity-ghost-hover) * 100%), transparent);
       --_ink: var(--vt-ctx-fg);
     }`;
   return unsafeCSS(`:host {
-      --_fill: var(--vt-control-primary-bg);
-      --_fill-hover: var(--vt-control-primary-bg-hover);
-      --_ink: var(--vt-control-primary-fg);
-    }${solid}${ghost}`);
+      --_fill: var(--vt-ctx-action-primary-bg);
+      --_fill-hover: var(--vt-ctx-action-primary-bg-hover);
+      --_ink: var(--vt-ctx-action-primary-fg);
+    }${actions}${neutral}`);
 };
 
 /**

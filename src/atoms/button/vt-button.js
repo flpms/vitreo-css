@@ -1,5 +1,5 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
-import { controlFill, focusRing, hostBase, leadBorder, raise } from '../../styles/mixins.js';
+import { controlFill, focusRing, hostBase, leadBorder, press } from '../../styles/mixins.js';
 import { defineElement } from '../../utils/define.js';
 
 /**
@@ -27,7 +27,9 @@ const FORM_ACTIONS = Object.freeze({
 });
 
 /**
- * Átomo · camada L2. Botão de vidro sólido com moldura de chumbo.
+ * Átomo · camada L2. Tecla de vidro: moldura de chumbo e espessura na cor da peça;
+ * no clique a tecla desce e a face fica côncava. As cores de primary/accent/danger
+ * vêm da camada onde o botão está (regras de aplicação em src/tokens/rules.json).
  *
  * @element vt-button
  * @slot - rótulo
@@ -35,7 +37,7 @@ const FORM_ACTIONS = Object.freeze({
  * @slot end - ícone depois do rótulo
  * @csspart button - o <button> nativo
  *
- * @attr {'primary'|'secondary'|'accent'|'danger'|'ghost'} variant - primary (cobalto), secondary (vidro claro), accent (âmbar), danger (rubi), ghost (herda a camada)
+ * @attr {'primary'|'secondary'|'accent'|'danger'|'ghost'} variant - primary (cobalto; verdete sobre cobalto, âmbar sobre ametista), secondary (vidro claro), accent (âmbar; verdete sobre âmbar e ametista), danger (rubi, sempre), ghost (herda a camada)
  * @attr {'sm'|'md'|'lg'} size
  * @attr {'button'|'submit'|'reset'} type
  * @attr {boolean} disabled
@@ -85,10 +87,22 @@ export class VtButton extends LitElement {
         cursor: pointer;
       }
 
-      ${raise('button')}
+      ${press('button')}
 
       button:hover {
         --_fill: var(--_fill-hover);
+      }
+
+      /* Ghost não tem espessura: é texto sobre a camada. No clique só afunda 1px. */
+      :host([variant='ghost']) button,
+      :host([variant='ghost']) button:hover {
+        --_depth-shadow: none;
+        transform: none;
+      }
+
+      :host([variant='ghost']) button:active {
+        --_depth-shadow: inset 0 2px 3px rgb(0 0 0 / 0.2);
+        transform: translateY(1px);
       }
 
       button:disabled {

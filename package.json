@@ -1,6 +1,6 @@
 {
   "name": "vitreo-ds",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Vítreo DS — design system em Lit inspirado em vitrais, Metro UI e Mondrian.",
   "type": "module",
   "main": "src/index.js",

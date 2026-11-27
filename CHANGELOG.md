@@ -4,6 +4,14 @@ Todas as mudanças do Vítreo DS ficam registradas aqui.
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) · Versionamento: [SemVer](https://semver.org/lang/pt-BR/).
 Enquanto o sistema estiver em `0.0.x`, **cada iteração de design gera uma versão patch**.
 
+## [0.0.5] - 2026-11-27
+
+### Alterado
+- **Elevação invertida, como uma tecla:** em repouso o botão já está erguido, com o degrau de brilho e sombra à direita e embaixo. No hover e no active ele afunda para o lugar e o degrau some. Desabilitado fica rente.
+
+### Corrigido
+- O botão de fechar do `vt-alert` não usa mais o degrau: como não tem borda, o degrau virava um "L" solto. Ele mantém só o véu de hover.
+
 ## [0.0.4] - 2026-11-26
 
 ### Adicionado
@@ -47,7 +55,8 @@ Enquanto o sistema estiver em `0.0.x`, **cada iteração de design gera uma vers
 - Três propostas de gutter para o grid: `air`, `light` e `lead`.
 - Página de demonstração.
 
-[0.0.4]: https://github.com/flpms/vitreo-css/compare/1f71bcb...feat-treomon
+[0.0.5]: https://github.com/flpms/vitreo-css/compare/8241d16...feat-treomon
+[0.0.4]: https://github.com/flpms/vitreo-css/compare/1f71bcb...8241d16
 [0.0.3]: https://github.com/flpms/vitreo-css/compare/0fb94f0...1f71bcb
 [0.0.2]: https://github.com/flpms/vitreo-css/compare/b2fd5ab...0fb94f0
 [0.0.1]: https://github.com/flpms/vitreo-css/compare/37b8e2b...b2fd5ab

@@ -4,6 +4,15 @@ Todas as mudanças do Vítreo DS ficam registradas aqui.
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) · Versionamento: [SemVer](https://semver.org/lang/pt-BR/).
 Enquanto o sistema estiver em `0.0.x`, **cada iteração de design gera uma versão patch**.
 
+## [0.0.6] - 2026-11-27
+
+### Alterado
+- **O degrau de elevação troca de lado conforme o estado** (`raise()`):
+  - repouso: degrau à esquerda e em cima, com o botão deslocado para baixo e à direita;
+  - hover: degrau à direita e embaixo, e o botão desliza para cima e à esquerda;
+  - clique (active): sem degrau, botão rente.
+- Desabilitado continua rente.
+
 ## [0.0.5] - 2026-11-27
 
 ### Alterado
@@ -55,7 +64,8 @@ Enquanto o sistema estiver em `0.0.x`, **cada iteração de design gera uma vers
 - Três propostas de gutter para o grid: `air`, `light` e `lead`.
 - Página de demonstração.
 
-[0.0.5]: https://github.com/flpms/vitreo-css/compare/8241d16...feat-treomon
+[0.0.6]: https://github.com/flpms/vitreo-css/compare/ef89c3a...feat-treomon
+[0.0.5]: https://github.com/flpms/vitreo-css/compare/8241d16...ef89c3a
 [0.0.4]: https://github.com/flpms/vitreo-css/compare/1f71bcb...8241d16
 [0.0.3]: https://github.com/flpms/vitreo-css/compare/0fb94f0...1f71bcb
 [0.0.2]: https://github.com/flpms/vitreo-css/compare/b2fd5ab...0fb94f0

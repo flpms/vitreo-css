@@ -12,6 +12,12 @@ Cada iteração de design ou código pedida pelo usuário é uma versão.
 3. **Push** para a branch de trabalho. Nunca reescreva o histórico já enviado: erros são corrigidos com um commit novo.
 4. A demo lê a versão do `package.json`. Não escreva o número da versão à mão no HTML.
 
+## Apresentação (demo, protótipos e propostas)
+
+- Toda apresentação mostra a **paleta** (os oito vidros e a luz do Mondrian). A paleta nunca sai de uma proposta.
+- Grids são apresentados sempre com `mode="light"`, a **luz atrás do vidro**. É o conceito central: o Mondrian é a luz, os vidros filtram e o chumbo dos cards faz as linhas pretas.
+- Botões seguem as regras de aplicação de `src/tokens/rules.json`. Não fixe cor de ação no componente nem na página.
+
 ## Verificação antes de cada commit de release
 
 - `npm run build` (gera os tokens, roda o validador de contraste e compila a demo) precisa passar. Se algum par de contraste falhar, o build quebra.

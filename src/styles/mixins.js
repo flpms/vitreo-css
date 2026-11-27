@@ -76,27 +76,28 @@ export const leadBorder = (weight = 'control', override = '--vt-lead-override') 
 `);
 
 /**
- * Elevação de controle (camada L2): no hover a peça sobe e ganha um degrau só à
- * direita e embaixo — filete de brilho colado na peça e sombra por fora. O brilho
- * aparece sobre fundos escuros, a sombra sobre os claros (validado em contrast-check).
- * No active a peça afunda e o degrau some.
+ * Elevação de controle (camada L2), como uma tecla: em repouso a peça está erguida,
+ * com um degrau só à direita e embaixo — filete de brilho colado na peça e sombra
+ * por fora. O brilho aparece sobre fundos escuros, a sombra sobre os claros
+ * (validado em contrast-check). No hover e no active a peça afunda e o degrau some.
+ * Desabilitado fica rente, sem degrau: não há o que pressionar.
  * @param {string} selector elemento interativo dentro do shadow root
  * @returns {import('lit').CSSResult}
  */
 export const raise = selector => unsafeCSS(`
   ${selector} {
+    transform: translate(calc(var(--vt-elevation-raise) * -1), calc(var(--vt-elevation-raise) * -1));
+    box-shadow:
+      var(--vt-elevation-raise) var(--vt-elevation-raise) 0 0 var(--vt-glint),
+      calc(var(--vt-elevation-raise) * 2) calc(var(--vt-elevation-raise) * 2) 0 0 var(--vt-shade);
     transition:
       transform var(--vt-motion-duration-fast) var(--vt-motion-easing-standard),
       box-shadow var(--vt-motion-duration-fast) var(--vt-motion-easing-standard),
       background-color var(--vt-motion-duration-fast) var(--vt-motion-easing-standard);
   }
-  ${selector}:hover:not(:disabled) {
-    transform: translate(calc(var(--vt-elevation-raise) * -1), calc(var(--vt-elevation-raise) * -1));
-    box-shadow:
-      var(--vt-elevation-raise) var(--vt-elevation-raise) 0 0 var(--vt-glint),
-      calc(var(--vt-elevation-raise) * 2) calc(var(--vt-elevation-raise) * 2) 0 0 var(--vt-shade);
-  }
-  ${selector}:active:not(:disabled) {
+  ${selector}:hover,
+  ${selector}:active,
+  ${selector}:disabled {
     transform: none;
     box-shadow: none;
   }

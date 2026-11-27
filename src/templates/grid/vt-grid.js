@@ -8,22 +8,23 @@ export const BREAKPOINTS = Object.freeze({ md: '64rem', sm: '40rem' });
 /**
  * Tratamentos do espaço entre as peças do grid.
  *   air   — Respiro Metro: gutter vazio e generoso; cada vidro traz o próprio chumbo.
- *   light — Luz atrás do vidro: blocos Mondrian desfocados atrás do grid, que o vidro refrata.
+ *   light — Luz atrás do vidro (padrão): as primárias do Mondrian desfocadas atrás do grid.
+ *           Os vidros filtram essa luz; o chumbo dos cards faz o papel das linhas pretas.
  *   lead  — Chumbo: o gutter vira a linha preta do vitral/Mondrian.
  */
 export const GRID_MODES = Object.freeze(['air', 'light', 'lead']);
-const DEFAULT_MODE = 'air';
+const DEFAULT_MODE = 'light';
 
 /**
- * Composição Mondrian sobre as divisões de Fibonacci do grid (8 | 5 | 8 e 13 | 8).
- * background-position em %: p = x / (W − w); para começar na coluna 9 (x = 8/21) com largura 5/21 → 50%.
+ * A luz atrás do vidro segue 'Composição II em vermelho, azul e amarelo' (Mondrian, 1930),
+ * alinhada às colunas do grid: vermelho grande no alto à direita (13 colunas), azul embaixo
+ * à esquerda (8 colunas) e um amarelo pequeno no canto inferior direito (3 colunas).
+ * O resto fica no branco do fundo.
  */
 const LIGHT_COMPOSITION = `
-  linear-gradient(var(--vt-light-ruby), var(--vt-light-ruby)) 0 0 / 38.1% 62% no-repeat,
-  linear-gradient(var(--vt-light-amber), var(--vt-light-amber)) 100% 0 / 38.1% 38% no-repeat,
-  linear-gradient(var(--vt-light-cobalt), var(--vt-light-cobalt)) 50% 100% / 23.8% 55% no-repeat,
-  linear-gradient(var(--vt-light-amber), var(--vt-light-amber)) 0 100% / 14.3% 24% no-repeat,
-  linear-gradient(var(--vt-light-cobalt), var(--vt-light-cobalt)) 100% 100% / 23.8% 30% no-repeat
+  linear-gradient(var(--vt-light-red), var(--vt-light-red)) 100% 0 / 61.9% 64% no-repeat,
+  linear-gradient(var(--vt-light-blue), var(--vt-light-blue)) 0 100% / 38.1% 36% no-repeat,
+  linear-gradient(var(--vt-light-yellow), var(--vt-light-yellow)) 100% 100% / 14.3% 22% no-repeat
 `;
 
 /**
@@ -32,7 +33,7 @@ const LIGHT_COMPOSITION = `
  *
  * @element vt-grid
  * @slot - vt-cell
- * @attr {'air'|'light'|'lead'} mode - tratamento do gutter (ver GRID_MODES)
+ * @attr {'light'|'air'|'lead'} mode - tratamento do gutter; padrão light (ver GRID_MODES)
  */
 export class VtGrid extends LitElement {
   static properties = {

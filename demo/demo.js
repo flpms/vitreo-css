@@ -71,7 +71,8 @@ const toneCard = (tone, emphasis) => `
     <span slot="header" class="vt-label">${TONE_LABELS[tone]} · ${emphasis}</span>
     <div class="row row--tight">
       <vt-button size="sm" variant="primary">primary</vt-button>
-      <vt-button size="sm" variant="secondary">secondary</vt-button>
+      <vt-button size="sm" variant="accent">accent</vt-button>
+      <vt-button size="sm" variant="danger">danger</vt-button>
       <vt-button size="sm" variant="ghost">ghost</vt-button>
     </div>
   </vt-card>`;

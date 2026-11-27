@@ -336,18 +336,63 @@ main > section {
   .ruler span { font-size: 0; }
 }
 
-/* Propostas de grid */
-.proposals {
+/* Luz atrás do vidro: a fonte (quadro) ao lado do resultado (vitral). */
+.concept {
   display: grid;
-  gap: var(--vt-space-7);
+  grid-template-columns: minmax(0, 8fr) minmax(0, 13fr);
+  gap: var(--vt-space-5);
+  align-items: start;
+  margin: var(--vt-space-5) 0;
 }
-.proposal__head {
-  margin-bottom: var(--vt-space-4);
+.concept figure {
+  display: grid;
+  gap: var(--vt-space-3);
+  margin: 0;
 }
-.proposal__head h3 {
-  margin: var(--vt-space-1) 0 var(--vt-space-2);
-  font-size: var(--vt-font-size-2xl);
-  font-weight: var(--vt-font-weight-light);
+.concept__source svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--vt-lead-surface) solid var(--vt-lead);
+}
+.concept figcaption {
+  font-size: var(--vt-font-size-xs);
+  max-width: 52ch;
+}
+@media (max-width: 64rem) {
+  .concept { grid-template-columns: 1fr; }
+  .concept__source { max-width: 28rem; }
+}
+
+.light-swatches {
+  display: grid;
+  gap: var(--vt-space-2);
+  margin-top: var(--vt-space-5);
+}
+.light-swatches__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vt-space-4);
+  font-size: var(--vt-font-size-xs);
+}
+.light-swatches__row span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vt-space-2);
+}
+.light-swatches__row i {
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--vt-lead);
+}
+
+.rules {
+  display: grid;
+  gap: var(--vt-space-2);
+  margin: 0 0 var(--vt-space-3);
+  padding-left: 1.25rem;
+  max-width: 70ch;
 }
 
 .colophon {

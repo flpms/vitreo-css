@@ -36,6 +36,42 @@
         <h2 id="t-paleta">a obra expandida</h2>
         <p>Em vez dos três primários do Mondrian, oito vidros. Vêm dos vitrais medievais (o azul de Chartres, o rubi de cobre, o âmbar de prata e a pátina do chumbo) e do Mondrian tardio. Em <em>Broadway Boogie Woogie</em> as linhas deixam de ser pretas e viram cor. Cada família é gerada em OKLCH com a mesma luminosidade por degrau, então um cobalto 600 e um rubi 600 têm o mesmo peso e o mesmo contraste.</p>
         <div class="palette" data-palette></div>
+        <div class="light-swatches">
+          <span class="vt-label vt-muted">a luz · Mondrian, 1930</span>
+          <div class="light-swatches__row">
+            <span><i style="background: var(--vt-color-mondrian-red)"></i>vermelho</span>
+            <span><i style="background: var(--vt-color-mondrian-yellow)"></i>amarelo</span>
+            <span><i style="background: var(--vt-color-mondrian-blue)"></i>azul</span>
+          </div>
+          <p class="vt-muted">Fora da escala OKLCH e usadas só como luz atrás do vidro, nunca como cor de componente.</p>
+        </div>
+      </section>
+
+      <!-- ───────────── Luz atrás do vidro ───────────── -->
+      <section aria-labelledby="t-luz">
+        <h2 id="t-luz">luz atrás do vidro</h2>
+        <p>É o conceito central do Vítreo. O Mondrian não pinta a interface: ele é a <strong>luz</strong>. As primárias puras de <em>Composição II em vermelho, azul e amarelo</em> (1930) ficam atrás do grid, desfocadas como luz de janela. Os vidros da paleta filtram essa luz. O chumbo fino dos cards faz o papel das linhas pretas do quadro.</p>
+        <div class="concept">
+          <figure class="concept__source">
+            <svg viewBox="0 0 210 120" role="img" aria-label="Composição em grade com um grande retângulo vermelho no alto à direita, um azul embaixo à esquerda e um pequeno amarelo no canto inferior direito, separados por linhas pretas">
+              <rect width="210" height="120" style="fill: var(--vt-color-glass-50)" />
+              <rect x="80" y="0" width="130" height="77" style="fill: var(--vt-color-mondrian-red)" />
+              <rect x="0" y="77" width="80" height="43" style="fill: var(--vt-color-mondrian-blue)" />
+              <rect x="180" y="94" width="30" height="26" style="fill: var(--vt-color-mondrian-yellow)" />
+              <g style="stroke: var(--vt-color-lead-950)" stroke-width="4">
+                <path d="M80 0v120M0 77h210M180 77v43M180 94h30M0 35h80" />
+              </g>
+            </svg>
+            <figcaption class="vt-muted"><strong>a luz.</strong> A composição de 1930, alinhada às 21 colunas: vermelho em 13, azul em 8 e amarelo em 3.</figcaption>
+          </figure>
+          <figure class="concept__result">
+            <vt-grid class="composition"></vt-grid>
+            <figcaption class="vt-muted"><strong>o vitral.</strong> A mesma luz atrás do <code>vt-grid</code>, desfocada e filtrada pelos vidros.</figcaption>
+          </figure>
+        </div>
+        <p>O grid tem 21 colunas. 21 = 3 × 7, e também é número de Fibonacci: divide em terços (7 + 7 + 7), em sétimos e nas proporções do quadro (13 + 8, 8 + 5 + 8).</p>
+        <div class="ruler" aria-hidden="true"></div>
+        <p class="vt-muted">A luz também entra no cálculo de contraste: todo vidro e todo texto são medidos sobre ela. Os modos <code>air</code> (sem luz) e <code>lead</code> (gutter de chumbo) continuam no componente, mas <code>light</code> é o padrão.</p>
       </section>
 
       <!-- ───────────── Dashboard ───────────── -->
@@ -50,7 +86,7 @@
             <vt-button variant="primary">novo relatório</vt-button>
           </div>
 
-          <vt-grid mode="air">
+          <vt-grid>
             <vt-cell span="7" span-md="21">
               <vt-card>
                 <span slot="header" class="vt-label vt-muted">visitantes · novembro</span>
@@ -118,7 +154,7 @@
       <!-- ───────────── Botões ───────────── -->
       <section aria-labelledby="t-botoes">
         <h2 id="t-botoes">botões</h2>
-        <p>Átomo da camada L2. O degrau de luz troca de lado: em repouso fica à esquerda e em cima; no hover passa para a direita e para baixo; ao clicar, some. Ghost não tem cor própria: usa o texto da camada.</p>
+        <p>Átomo da camada L2: uma tecla de vidro. A peça tem uma espessura embaixo, feita da própria cor escurecida. No hover ela sobe 1px; ao clicar, desce a espessura inteira e a face fica côncava. O aperto dura 60 ms e a volta 160 ms. O ghost não tem espessura.</p>
 
         <div class="row">
           <vt-button variant="primary">primary</vt-button>
@@ -137,6 +173,16 @@
           </vt-button>
         </div>
 
+        <h3 class="subhead">regras de aplicação</h3>
+        <ol class="rules">
+          <li><strong>Inversão de luminosidade.</strong> Sobre vidro claro, o preenchimento é profundo e o texto é claro. Sobre vidro escuro, o preenchimento é claro e o texto é grafite. O botão sempre se destaca do vidro com pelo menos 3:1.</li>
+          <li><strong>Troca de matiz.</strong> A ação nunca usa a cor do vidro onde está. O <code>primary</code> vira verdete sobre cobalto e âmbar sobre ametista. O <code>accent</code> vira verdete sobre âmbar e ametista.</li>
+          <li><strong><code>danger</code> é sempre rubi.</strong> Só a luminosidade se inverte.</li>
+          <li><strong><code>secondary</code> e <code>ghost</code> são neutros.</strong></li>
+          <li><strong>Um <code>primary</code> por vidro.</strong> As outras ações são secondary ou ghost.</li>
+        </ol>
+        <p class="vt-muted">As regras ficam em <code>src/tokens/rules.json</code>. Cada vidro publica as próprias cores de ação, e o validador confere todas.</p>
+
         <h3 class="subhead">sobre cada vidro · soft e strong</h3>
         <div class="tones" data-tones></div>
       </section>
@@ -146,7 +192,7 @@
         <h2 id="t-campos">campos</h2>
         <p><code>vt-input</code> é o átomo: não tem rótulo visível e exige <code>label</code>. <code>vt-field</code> é a molécula, com rótulo, dica e erro. Os dois funcionam dentro de um <code>&lt;form&gt;</code> nativo.</p>
 
-        <vt-grid mode="air">
+        <vt-grid>
           <vt-cell span="13" span-md="21">
             <vt-card>
               <h3 slot="header">cadastro</h3>
@@ -190,41 +236,6 @@
         </div>
       </section>
 
-      <!-- ───────────── Grid ───────────── -->
-      <section aria-labelledby="t-grid">
-        <h2 id="t-grid">grid de 21 colunas</h2>
-        <p>21 = 3 × 7, e também é número de Fibonacci. Divide em terços (7 + 7 + 7), em sétimos e em composições como 13 + 8 e 8 + 5 + 8.</p>
-        <div class="ruler" aria-hidden="true"></div>
-
-        <div class="proposals">
-          <article class="proposal" aria-labelledby="p-air">
-            <header class="proposal__head">
-              <span class="vt-label vt-muted">Ideia 1 · <code>mode="air"</code></span>
-              <h3 id="p-air">Respiro Metro</h3>
-              <p>Espaço vazio e generoso entre as colunas: 24px, ou 16px no celular. O grid fica invisível e cada vidro traz o próprio chumbo.</p>
-            </header>
-            <vt-grid mode="air" class="composition"></vt-grid>
-          </article>
-
-          <article class="proposal" aria-labelledby="p-light">
-            <header class="proposal__head">
-              <span class="vt-label vt-muted">Ideia 2 · <code>mode="light"</code></span>
-              <h3 id="p-light">Luz atrás do vidro</h3>
-              <p>Blocos de luz desfocados ficam atrás do grid, seguindo as divisões 8 | 5 | 8 e 13 | 8, e os vidros os refratam. Os blocos também entram no cálculo de contraste.</p>
-            </header>
-            <vt-grid mode="light" class="composition"></vt-grid>
-          </article>
-
-          <article class="proposal" aria-labelledby="p-lead">
-            <header class="proposal__head">
-              <span class="vt-label vt-muted">Referência · <code>mode="lead"</code></span>
-              <h3 id="p-lead">Chumbo</h3>
-              <p>O espaço entre as colunas vira uma linha fina de grafite, e os cards perdem a moldura própria.</p>
-            </header>
-            <vt-grid mode="lead" class="composition"></vt-grid>
-          </article>
-        </div>
-      </section>
     </main>
 
     <footer class="wrap colophon vt-muted">

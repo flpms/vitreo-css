@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Encomenda de vitral · Vítreo DS</title>
+    <meta name="description" content="Aplicação de formulário montada só com os componentes do Vítreo DS." />
+    <link rel="stylesheet" href="../src/tokens/tokens.css" />
+    <link rel="stylesheet" href="../src/styles/base.css" />
+    <link rel="stylesheet" href="./demo.css" />
+    <link rel="stylesheet" href="./formulario.css" />
+    <script type="module" src="./formulario.js"></script>
+  </head>
+  <body class="vt-canvas">
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="masthead masthead--app">
+      <div class="wrap masthead__inner">
+        <div>
+          <p class="vt-label vt-muted"><a href="./index.html">Vítreo DS</a> · <span data-version></span> · aplicação</p>
+          <h1 class="app-title">encomenda de vitral</h1>
+          <p class="lede">Conte o que você imagina e receba um orçamento. O valor muda conforme o tamanho da peça e o vidro escolhido.</p>
+        </div>
+        <fieldset class="theme-switch">
+          <legend class="vt-label vt-muted">Tema</legend>
+          <label><input type="radio" name="theme" value="auto" checked /> <span>auto</span></label>
+          <label><input type="radio" name="theme" value="light" /> <span>claro</span></label>
+          <label><input type="radio" name="theme" value="dark" /> <span>escuro</span></label>
+        </fieldset>
+      </div>
+      <div class="came" aria-hidden="true"></div>
+    </header>
+
+    <main id="conteudo" class="wrap">
+      <form id="encomenda" class="order" novalidate>
+        <vt-grid>
+          <!-- Mensagens do formulário: resumo de erros, envio e aviso inicial. -->
+          <vt-cell span="21">
+            <div class="order__messages">
+              <vt-alert data-summary variant="danger" heading="Revise o formulário" tabindex="-1">
+                <ul class="error-list" data-error-list></ul>
+              </vt-alert>
+              <vt-alert data-success variant="success" heading="Encomenda enviada" dismissible tabindex="-1">
+                <span data-success-text></span>
+              </vt-alert>
+              <vt-alert data-intro variant="info" heading="Orçamento sem compromisso" dismissible>
+                Respondemos em até 2 dias úteis. Os campos com * são obrigatórios.
+              </vt-alert>
+            </div>
+          </vt-cell>
+
+          <!-- Formulário: 13 colunas -->
+          <vt-cell span="13" span-md="21">
+            <vt-card>
+              <h2 slot="header" class="card-title">sua peça</h2>
+
+              <fieldset class="group">
+                <legend class="group__legend"><span class="group__step">1</span> contato</legend>
+                <vt-field label="Nome" name="nome" required autocomplete="name"></vt-field>
+                <div class="group__row">
+                  <vt-field label="E-mail" name="email" type="email" required autocomplete="email" hint="Para enviar o orçamento."></vt-field>
+                  <vt-field label="Telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" hint="Opcional. Com DDD."></vt-field>
+                </div>
+              </fieldset>
+
+              <fieldset class="group">
+                <legend class="group__legend"><span class="group__step">2</span> medidas</legend>
+                <div class="group__row">
+                  <vt-field label="Largura (cm)" name="largura" type="number" inputmode="numeric" required value="80" hint="De 20 a 300 cm."></vt-field>
+                  <vt-field label="Altura (cm)" name="altura" type="number" inputmode="numeric" required value="120" hint="De 20 a 300 cm."></vt-field>
+                </div>
+                <vt-field label="Onde vai ficar" name="local" placeholder="Ex.: janela da escada, porta da sala" hint="Ajuda a decidir a espessura do chumbo."></vt-field>
+              </fieldset>
+
+              <fieldset class="group">
+                <legend class="group__legend"><span class="group__step">3</span> vidro dominante</legend>
+                <p class="group__note vt-muted">Os oito vidros da paleta. O vidro escolhido pinta a prévia ao lado.</p>
+                <div class="glass-picker" data-glass-picker></div>
+              </fieldset>
+
+              <fieldset class="group">
+                <legend class="group__legend"><span class="group__step">4</span> entrega</legend>
+                <div class="group__row">
+                  <vt-field label="CEP" name="cep" required autocomplete="postal-code" inputmode="numeric" placeholder="00000-000"></vt-field>
+                  <vt-field label="Cidade" name="cidade" autocomplete="address-level2"></vt-field>
+                </div>
+              </fieldset>
+            </vt-card>
+          </vt-cell>
+
+          <!-- Resumo: 8 colunas, vidro cobalto strong. Pelas regras, o primary aqui é verdete. -->
+          <vt-cell span="8" span-md="21">
+            <div class="order__aside">
+              <vt-card tone="cobalt" emphasis="strong">
+                <h2 slot="header" class="card-title">orçamento</h2>
+
+                <div class="preview" data-preview aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <p class="preview__caption" data-preview-caption></p>
+
+                <dl class="summary">
+                  <div><dt>área</dt><dd data-area></dd></div>
+                  <div><dt>vidro</dt><dd data-glass></dd></div>
+                  <div><dt>prazo</dt><dd data-deadline></dd></div>
+                </dl>
+                <p class="total"><span class="vt-label">estimativa</span><output data-total for="encomenda" aria-live="polite"></output></p>
+
+                <div slot="footer" class="order__actions">
+                  <vt-button type="submit" variant="primary">enviar encomenda</vt-button>
+                  <vt-button type="reset" variant="ghost">limpar</vt-button>
+                </div>
+              </vt-card>
+            </div>
+          </vt-cell>
+        </vt-grid>
+      </form>
+
+      <!-- A paleta sempre acompanha a apresentação. -->
+      <section class="app-palette" aria-labelledby="t-paleta">
+        <h2 id="t-paleta" class="vt-label vt-muted">paleta · os oito vidros e a luz</h2>
+        <div class="palette palette--compact" data-palette></div>
+        <div class="light-swatches__row">
+          <span><i style="background: var(--vt-color-mondrian-red)"></i>vermelho</span>
+          <span><i style="background: var(--vt-color-mondrian-yellow)"></i>amarelo</span>
+          <span><i style="background: var(--vt-color-mondrian-blue)"></i>azul</span>
+          <span class="vt-muted">a luz atrás do grid · Mondrian, 1930</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap colophon vt-muted">
+      <p>Vítreo DS <span data-version></span> · vt-grid (luz atrás do vidro) · vt-card · vt-field · vt-button · vt-alert</p>
+    </footer>
+  </body>
+</html>
